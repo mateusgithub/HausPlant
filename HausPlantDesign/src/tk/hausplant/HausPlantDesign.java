@@ -1,8 +1,7 @@
-package br.com.hausplantdesign;
+package tk.hausplant;
 
 /**
- *
- * @author mateusht
+ * Main HausPlant class
  */
 public class HausPlantDesign {
 
