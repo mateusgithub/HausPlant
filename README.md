@@ -3,7 +3,7 @@
 
 Sistema para projeto e design de plantas arquitetônicas.
 
-Projeto utilizará a arquitetura model, view, controller. Persistencia de dados em arquivos.
+Projeto utilizará a arquitetura MVC (model, view, controller). Persistência de dados em arquivos.
 
 ### Membros da equipe
 * Marcos Ramon Ramalho - RA: 183414
@@ -12,24 +12,24 @@ Projeto utilizará a arquitetura model, view, controller. Persistencia de dados 
 
 ### Classes do sistema
 #### Camada Model
+* **Planta**
+  Planta da casa que poderá conter paredes, móveis e telhados
 * **Objeto3D**
   Objeto tridimensional genérico
-* **Planta**
-  Planta da casa que poderá conter paredes e móveis
 * **Parede**
-  Descrição das características de uma parede, podendo conter portas e janelas
+  Descrição das características de uma parede, podendo conter portas e janelas (extende Objeto3D)
 * **Porta**
-  Descrição das características de uma porta, a qual está ligada à uma parede
+  Descrição das características de uma porta, a qual está ligada à uma parede (extende Objeto3D)
 * **Janela**
-  Descrição das características de uma janela, a qual está ligada à uma parede
+  Descrição das características de uma janela, a qual está ligada à uma parede (extende Objeto3D)
+* **Telhado**
+  Armazena informações sobre as características do telhado
 * **Movel**
-  Objeto tridimensional que pode ser colocado na planta
+  Objeto tridimensional que pode ser colocado na planta (extende Objeto3D)
 * **PlantaDAO**
   Objeto DAO responsável por salvar e carregar plantas de casas a partir de arquivos
 * **MovelDAO**
   Objeto DAO responsável por carregar móveis a partir de arquivos
-* **Telhado**
-  Armazena informações sobre as características do telhado
 
 #### Camada View
 * **Prancheta**
