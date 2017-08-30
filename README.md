@@ -44,6 +44,8 @@ Projeto utilizará a arquitetura MVC (model, view, controller). Persistência de
   Ponto de partida e controle principal do fluxo do programa
 * **Projeto**
   Controle sobre o projeto sendo trabalhado no momento
+* **Biblioteca**
+  Controle sobre objetos que serão importados pela loja. Irá carregar objetos à partir de arquivos
 
 ### Bibliotecas a serem utilizadas
 * **SpaceDrawboard Library** - Para visualização de cenas tridimensionais
