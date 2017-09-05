@@ -6,7 +6,7 @@ import spacedrawboard.visualization.Visualization;
 /**
  * Main HausPlant class
  */
-public class HausPlantDesign {
+public class HausPlant {
 
     /**
      * @param args the command line arguments
