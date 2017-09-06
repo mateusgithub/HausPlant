@@ -9,7 +9,8 @@ import spacedrawboard.visualization.Visualization;
 public class HausPlant {
 
     /**
-     * @param args the command line arguments
+     * HausPlant entry point
+     * @param args
      */
     public static void main(String[] args) {
         
