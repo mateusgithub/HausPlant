@@ -1,18 +1,18 @@
-package tk.hausplant.controller;
+package tk.hausplant.dao;
 
 import tk.hausplant.model.User;
-import tk.hausplant.dao.ConnectMSSQLServer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import tk.hausplant.controller.AbstractDAO;
 
 /**
  * User Service
  * 
  * @author mateusht
  */
-public class UserController extends AbstractController{
+public class UserDAO extends AbstractDAO{
     
     /**
      * Method to get all users from database

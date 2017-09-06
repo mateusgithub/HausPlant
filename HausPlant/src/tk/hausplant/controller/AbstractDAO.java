@@ -2,11 +2,11 @@ package tk.hausplant.controller;
 
 import tk.hausplant.dao.ConnectMSSQLServer;
 
-abstract class AbstractController {
+public abstract class AbstractDAO {
     
-    final ConnectMSSQLServer con;
+    public final ConnectMSSQLServer con;
    
-    public AbstractController() {
+    public AbstractDAO() {
         con = new ConnectMSSQLServer();
     }
     
