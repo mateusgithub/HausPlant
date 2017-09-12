@@ -36,7 +36,7 @@ public class Renderizador2DPlanta extends JPanel {
         this.backgroundColor = backgroundColor;
 
         setBackground(backgroundColor);
-        
+
         setDoubleBuffered(true);
         setIgnoreRepaint(true);
 

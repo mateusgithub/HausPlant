@@ -3,9 +3,7 @@ package tk.hausplant;
 import java.awt.Color;
 import spacedrawboard.visualization.Drawboard;
 import spacedrawboard.visualization.Visualization;
-import tk.hausplant.dao.UserDAO;
 import tk.hausplant.model.Planta;
-import tk.hausplant.view.Renderizador2DPlanta;
 import tk.hausplant.view.Prancheta;
 
 /**
@@ -23,7 +21,7 @@ public class HausPlant {
         new Visualization("Hello World!", 700, 550, new Drawboard()).showWindow();
 
         Planta planta = new Planta();
-        
+
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
 

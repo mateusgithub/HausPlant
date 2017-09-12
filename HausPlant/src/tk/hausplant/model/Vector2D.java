@@ -30,7 +30,7 @@ public class Vector2D {
     public Vector2D plus(Vector2D other) {
         return new Vector2D(x + other.x, y + other.y);
     }
-    
+
     public Vector2D minus(Vector2D other) {
         return new Vector2D(x - other.x, y - other.y);
     }

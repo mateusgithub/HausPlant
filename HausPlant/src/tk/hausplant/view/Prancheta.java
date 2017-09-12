@@ -16,20 +16,20 @@ public class Prancheta extends javax.swing.JFrame {
 
     public Prancheta(Planta planta, Color corFundo) {
         initComponents();
-        
+
         container.add(new Renderizador2DPlanta(planta, corFundo));
-        
+
         setLocationRelativeTo(null);
     }
-    
-    public void showWindow(){
+
+    public void showWindow() {
         setVisible(true);
     }
 
-    public void hideWindow(){
+    public void hideWindow() {
         setVisible(false);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,7 +86,6 @@ public class Prancheta extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;

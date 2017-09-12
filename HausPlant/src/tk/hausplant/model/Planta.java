@@ -13,17 +13,15 @@ import java.util.List;
  * @author sergio
  */
 public class Planta {
-    
-    private List<Wall> walls = new ArrayList<>();
+
+    private final List<Wall> walls = new ArrayList<>();
 
     public List<Wall> getWalls() {
         return walls;
     }
-    
-    public void addWall(Wall wall){
+
+    public void addWall(Wall wall) {
         this.walls.add(wall);
     }
-    
+
 }
-
-
