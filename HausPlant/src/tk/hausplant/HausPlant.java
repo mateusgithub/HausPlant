@@ -24,13 +24,6 @@ public class HausPlant {
 
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
-
-        /*
-        UserDAO userController = new UserDAO();
-        userController.getUsers().forEach(u -> {
-            System.out.println("Id: " + u.getId() + " Name: " + u.getName());
-        });
-         */
     }
 
 }
