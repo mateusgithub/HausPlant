@@ -75,7 +75,7 @@ public class ItemLoja extends JPanel {
 
         for (int i = 0; i < arrayJson.length(); i++) {
             try {
-                JSONObject objeto = arrayJson.getJSONObject(0);
+                JSONObject objeto = arrayJson.getJSONObject(i);
 
                 String nomeItem = objeto.getString("nome");
                 String localModelo = objeto.getString("localModelo");
