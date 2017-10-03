@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tk.hausplant.view;
 
 import java.awt.Point;
@@ -12,18 +7,20 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.event.MouseInputListener;
 import tk.hausplant.model.Planta;
-import tk.hausplant.model.Wall;
+import tk.hausplant.model.Parede;
 
 /**
- *
- * @author sergio
+ * Receberá eventos ocorridos sobre a Prancheta e fará modificações na planta
+ * conforme solicitado pelo usuário
  */
 public class ManipuladorMouse implements MouseListener, MouseWheelListener, MouseInputListener {
 
-    private final static int CORNER_A = 0;
-    private final static int CORNER_B = 1;
+    private static enum Canto {
+        CantoA,
+        CantoB;
+    }
 
-    private final static int EDIT_WALL_RADIUS = 10;
+    private final static int RAIO_ALCANCE = 10;
 
     private final Planta planta;
 
@@ -35,9 +32,9 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     private boolean editingWall = false;
 
-    private int selectedWallCorner = CORNER_A;
+    private Canto selectedWallCorner = Canto.CantoA;
 
-    private Wall activeWall = null;
+    private Parede activeWall = null;
 
     public ManipuladorMouse(Planta planta, Renderizador2DPlanta viewer) {
         this.planta = planta;
@@ -51,7 +48,7 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
         viewer.update();
     }
 
-    private void selectWall(Wall wall) {
+    private void selectWall(Parede wall) {
         activeWall = wall;
         wall.setSelected(true);
         viewer.update();
@@ -72,16 +69,16 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
             Point pos = e.getPoint();
 
             // Check cursor position if it is close to a wall corner
-            for (Wall wall : planta.getWalls()) {
-                if (wall.getA().distance(pos) <= EDIT_WALL_RADIUS) {
+            for (Parede wall : planta.getWalls()) {
+                if (wall.getA().distance(pos) <= RAIO_ALCANCE) {
                     selectWall(wall);
                     editingWall = true;
-                    selectedWallCorner = CORNER_A;
+                    selectedWallCorner = Canto.CantoA;
                     break;
-                } else if (wall.getB().distance(pos) <= EDIT_WALL_RADIUS) {
+                } else if (wall.getB().distance(pos) <= RAIO_ALCANCE) {
                     selectWall(wall);
                     editingWall = true;
-                    selectedWallCorner = CORNER_B;
+                    selectedWallCorner = Canto.CantoB;
                     break;
                 }
             }
@@ -114,14 +111,14 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
                 activeWall.setB(currentPoint.x, currentPoint.y);
                 viewer.update();
             } else if (editingWall) {
-                if (selectedWallCorner == CORNER_A) {
+                if (selectedWallCorner == Canto.CantoA) {
                     activeWall.setA(currentPoint.x, currentPoint.y);
                 } else {
                     activeWall.setB(currentPoint.x, currentPoint.y);
                 }
                 viewer.update();
             } else {
-                selectWall(new Wall(lastPoint.x, lastPoint.y, currentPoint.x, currentPoint.y));
+                selectWall(new Parede(lastPoint.x, lastPoint.y, currentPoint.x, currentPoint.y));
                 planta.addWall(activeWall);
                 creatingWall = true;
             }
