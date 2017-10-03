@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tk.hausplant.view;
 
 import java.io.IOException;
@@ -16,8 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
- * @author sergio
+ * Responsável por gerenciar os itens disponíveis na loja de objetos 3D
  */
 public class ItemLoja extends JPanel {
 
