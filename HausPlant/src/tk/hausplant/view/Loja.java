@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tk.hausplant.view;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
@@ -13,8 +7,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 
 /**
- *
- * @author sergio
+ * Onde estarão disponíveis os objetos que poderão ser colocados na planta
  */
 public class Loja extends javax.swing.JFrame {
 
@@ -23,8 +16,8 @@ public class Loja extends javax.swing.JFrame {
      *
      * @param indiceItens Caminho do arquivo contendo lista de móveis presentes
      * na loja
-     * @throws java.io.IOException
-     * @throws java.text.ParseException
+     * @throws IOException
+     * @throws ParseException
      */
     public Loja(Path indiceItens) throws IOException, ParseException {
         initComponents();
