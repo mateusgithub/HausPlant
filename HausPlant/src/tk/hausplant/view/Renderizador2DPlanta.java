@@ -8,7 +8,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import tk.hausplant.model.Planta;
 import tk.hausplant.model.Parede;
-import tk.hausplant.model.Vector2D;
+import tk.hausplant.model.Vetor2D;
 
 /**
  * Responsável por gerar uma visualização 2D de uma planta
@@ -55,9 +55,10 @@ public class Renderizador2DPlanta extends JPanel {
         int x1 = parede.getA().x, y1 = parede.getA().y,
                 x2 = parede.getB().x, y2 = parede.getB().y;
 
-        Vector2D dir = new Vector2D(x2 - x1, y2 - y1);
+        Vetor2D dir = new Vetor2D(x2 - x1, y2 - y1);
+        Vetor2D c1;
 
-        Vector2D c1, c2, c3, c4;
+        Vetor2D c2, c3, c4;
 
         c1 = dir.getOrthogonal();
         c1.normalize();
