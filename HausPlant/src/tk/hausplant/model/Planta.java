@@ -14,13 +14,13 @@ import java.util.List;
  */
 public class Planta {
 
-    private final List<Wall> walls = new ArrayList<>();
+    private final List<Parede> walls = new ArrayList<>();
 
-    public List<Wall> getWalls() {
+    public List<Parede> getWalls() {
         return walls;
     }
 
-    public void addWall(Wall wall) {
+    public void addWall(Parede wall) {
         this.walls.add(wall);
     }
 
