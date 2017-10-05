@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BoxLayout;
+import tk.hausplant.dao.ItemLojaDAO;
 
 /**
  * Onde estarão disponíveis os objetos que poderão ser colocados na planta
@@ -24,13 +26,10 @@ public class Loja extends javax.swing.JFrame {
 
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        carregarItens(ItemLoja.lerItens(indiceItens));
-    }
+        setLocationRelativeTo(null);
 
-    private void carregarItens(ArrayList<ItemLoja> itens) {
-        assert itens != null;
+        List<ItemLoja> itens = ItemLojaDAO.lerItens(indiceItens);
 
-        container.removeAll();
         for (ItemLoja item : itens) {
             container.add(item);
         }
