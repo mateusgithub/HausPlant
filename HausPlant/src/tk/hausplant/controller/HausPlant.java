@@ -17,9 +17,6 @@ public class HausPlant {
      * @param args
      */
     public static void main(String[] args) {
-
-        new Visualization("Hello World!", 700, 550, new Drawboard()).showWindow();
-
         Planta planta = new Planta();
 
         Prancheta prancheta = new Prancheta(planta, Color.white);
