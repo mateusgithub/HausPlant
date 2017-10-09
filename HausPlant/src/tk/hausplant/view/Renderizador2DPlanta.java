@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tk.hausplant.view;
 
 import java.awt.Color;
@@ -12,12 +7,11 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JPanel;
 import tk.hausplant.model.Planta;
-import tk.hausplant.model.Wall;
-import tk.hausplant.model.Vector2D;
+import tk.hausplant.model.Parede;
+import tk.hausplant.model.Vetor2D;
 
 /**
- *
- * @author sergio
+ * Responsável por gerar uma visualização 2D de uma planta
  */
 public class Renderizador2DPlanta extends JPanel {
 
@@ -55,15 +49,16 @@ public class Renderizador2DPlanta extends JPanel {
         g.fillRect(0, 0, getWidth(), getHeight());
     }
 
-    private void drawWall(Wall wall, double thickness) {
+    private void desenharParede(Parede parede, double thickness) {
         Graphics g = getGraphics();
 
-        int x1 = wall.getA().x, y1 = wall.getA().y,
-                x2 = wall.getB().x, y2 = wall.getB().y;
+        int x1 = parede.getA().x, y1 = parede.getA().y,
+                x2 = parede.getB().x, y2 = parede.getB().y;
 
-        Vector2D dir = new Vector2D(x2 - x1, y2 - y1);
+        Vetor2D dir = new Vetor2D(x2 - x1, y2 - y1);
+        Vetor2D c1;
 
-        Vector2D c1, c2, c3, c4;
+        Vetor2D c2, c3, c4;
 
         c1 = dir.getOrthogonal();
         c1.normalize();
@@ -81,7 +76,7 @@ public class Renderizador2DPlanta extends JPanel {
         polygon.addPoint((int) c3.x + x1, (int) c3.y + y1);
         polygon.addPoint((int) c4.x + x1, (int) c4.y + y1);
 
-        if (wall.isSelected()) {
+        if (parede.isSelected()) {
             g.setColor(Color.blue);
         } else {
             g.setColor(Color.black);
@@ -94,8 +89,8 @@ public class Renderizador2DPlanta extends JPanel {
     public void update() {
         clear();
 
-        for (Wall wall : planta.getWalls()) {
-            drawWall(wall, 10);
+        for (Parede wall : planta.getWalls()) {
+            desenharParede(wall, 10);
         }
     }
 
