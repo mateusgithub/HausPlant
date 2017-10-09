@@ -17,4 +17,21 @@ public class Movel extends Objeto3D {
         modelo = new Model(forma, material);
     }
 
+    @Override
+    public void setX(float x) {
+        this.x = x;
+    }
+    
+    @Override
+    public void setY(float y) {
+        this.y = y;
+    }
+    
+    @Override
+    public void setZ(float z) {
+        this.z = z;
+    }
+    
+    
+
 }
