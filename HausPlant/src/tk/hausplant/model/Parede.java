@@ -11,7 +11,7 @@ import java.awt.Point;
  *
  * @author sergio
  */
-public class Parede implements Objeto3D {
+public class Parede extends Objeto3D {
 
     private Point a, b;
 
