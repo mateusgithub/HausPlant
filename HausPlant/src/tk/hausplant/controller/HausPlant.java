@@ -1,13 +1,14 @@
 package tk.hausplant.controller;
 
 import java.awt.Color;
-import spacedrawboard.visualization.Drawboard;
-import spacedrawboard.visualization.Visualization;
+import java.util.ArrayList;
+import java.util.List;
+import tk.hausplant.model.Parede;
 import tk.hausplant.model.Planta;
 import tk.hausplant.view.Prancheta;
 
 /**
- * Main HausPlant class
+ * Class main start do projeto HausPlant
  */
 public class HausPlant {
 
@@ -17,7 +18,13 @@ public class HausPlant {
      * @param args
      */
     public static void main(String[] args) {
-        Planta planta = new Planta();
+        Parede a = new Parede(309, 111, 400, 135);
+         
+         
+        List<Parede> paredes = new ArrayList();
+        paredes.add(a);
+        
+        Planta planta = new Planta("Teste", paredes);
 
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
