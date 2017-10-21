@@ -1,6 +1,7 @@
 package tk.hausplant.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,10 @@ public class Planta implements Serializable {
     
     private final List<Parede> walls;
 
+    public Planta() {
+        walls = new ArrayList<>();
+    }
+    
     public Planta(String descricao, List<Parede> paredes) {
         this.descricao = descricao;
         this.walls = paredes;

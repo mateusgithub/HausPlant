@@ -1,9 +1,7 @@
 package tk.hausplant.view;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import tk.hausplant.model.Parede;
+import tk.hausplant.controller.PlantaController;
 import tk.hausplant.model.Planta;
 
 /**
@@ -105,19 +103,15 @@ public class Prancheta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Parede a = new Parede(2, 1, 2, 1);
-        List<Parede> paredes = new ArrayList();
-        paredes.add(a);
-      
-        Planta novaPlanta = new Planta("Teste", paredes);
-        Prancheta prancheta = new Prancheta(novaPlanta, Color.white);
-        
-        prancheta.showWindow();
         this.closeWindow();
+        PlantaController plantaController = new PlantaController();
+        Planta planta =  plantaController.carregarPlanta();
+        Prancheta prancheta = new Prancheta(planta, Color.white);
+        prancheta.showWindow();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
