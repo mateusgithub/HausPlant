@@ -20,7 +20,7 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
         CantoB;
     }
 
-    private final static int RAIO_ALCANCE = 10;
+    private final static int RAIO_ALCANCE = 12;
 
     private final Planta planta;
 
