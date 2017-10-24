@@ -8,9 +8,18 @@ import tk.hausplant.model.Planta;
  * Janela onde serão exibidos controles para manipulação da Planta
  */
 public class Prancheta extends javax.swing.JFrame {
+    
+    /**
+     * Quantidade de pixels por metro (para converter pixel para metro)
+     */
+    public static final float PIXELS_POR_METRO = 25;
+    
+    private final Planta planta;
 
     public Prancheta(Planta planta, Color corFundo) {
         initComponents();
+        
+        this.planta = planta;
 
         Renderizador2DPlanta renderizador2D = new Renderizador2DPlanta(planta, corFundo);
         
@@ -43,6 +52,7 @@ public class Prancheta extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -67,6 +77,14 @@ public class Prancheta extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton4);
+
+        jButton5.setText("Visualização 3D");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton5);
 
         jButton2.setText("Salvar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -122,12 +140,19 @@ public class Prancheta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Renderizador3DPlanta renderizador3D = new Renderizador3DPlanta(planta);
+        
+        renderizador3D.mostrarVisualizacao();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel container;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,11 +6,16 @@ import java.awt.Point;
 import java.awt.Polygon;
 
 public class Parede extends Objeto3D implements Desenhavel {
+    
+    /**
+     * Altura da parede padrão em metros (3D)
+     */
+    public static final float ALTURA_PADRAO = 3;
 
     private final Point a, b;
 
     /**
-     * Largura da parede quando desenhada em pixels
+     * Largura da parede quando desenhada em pixels (2D)
      */
     private final double largura = 5;
 
