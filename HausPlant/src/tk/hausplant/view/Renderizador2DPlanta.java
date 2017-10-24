@@ -53,7 +53,6 @@ public class Renderizador2DPlanta extends JPanel {
         clear();
 
         for (Parede wall : planta.getWalls()) {
-            desenharParede(wall, 10);
             wall.desenhar2DEm(getGraphics());
         }
     }

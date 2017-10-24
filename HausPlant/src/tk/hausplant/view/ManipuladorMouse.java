@@ -39,7 +39,6 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
     public ManipuladorMouse(Planta planta, Renderizador2DPlanta viewer) {
         this.planta = planta;
         this.viewer = viewer;
-        clearSelection();
     }
 
     private void clearSelection() {
