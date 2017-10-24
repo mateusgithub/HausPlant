@@ -26,11 +26,11 @@ public class Renderizador3DPlanta {
         // Montar paredes 3D usando triângulos
         for (Parede parede : planta.getWalls()) {
             // Cantos da parede
-            Vector3D A = new Vector3D(parede.getA().x, parede.getA().y, 0);
-            Vector3D Ah = new Vector3D(parede.getA().x, parede.getA().y, 0);
+            Vector3D A = new Vector3D(parede.getA().x, -parede.getA().y, 0);
+            Vector3D Ah = new Vector3D(parede.getA().x, -parede.getA().y, 0);
             
-            Vector3D B = new Vector3D(parede.getB().x, parede.getB().y, 0);
-            Vector3D Bh = new Vector3D(parede.getB().x, parede.getB().y, 0);
+            Vector3D B = new Vector3D(parede.getB().x, -parede.getB().y, 0);
+            Vector3D Bh = new Vector3D(parede.getB().x, -parede.getB().y, 0);
             
             // Ajustar escalas dos cantos (converter de pixel para metro)
             A = A.timesScalar(1/Prancheta.PIXELS_POR_METRO);

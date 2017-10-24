@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.io.Serializable;
 
-public class Parede extends Objeto3D implements Desenhavel {
+public class Parede extends Objeto3D implements Serializable, Desenhavel {
     
     /**
      * Altura da parede padrão em metros (3D)
      */
-    public static final float ALTURA_PADRAO = 3;
+    public transient static final float ALTURA_PADRAO = 3;
 
     private final Point a, b;
 
@@ -19,7 +20,7 @@ public class Parede extends Objeto3D implements Desenhavel {
      */
     private final double largura = 5;
 
-    private boolean selected = false;
+    private transient boolean selected = false;
 
     public Parede(int x1, int y1, int x2, int y2) {
         this.a = new Point(x1, y1);
