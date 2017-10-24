@@ -44,9 +44,11 @@ public class Renderizador2DPlanta extends JPanel {
 
     private void clear() {
         Graphics g = getGraphics();
-
-        g.setColor(backgroundColor);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        
+        if(g != null){
+            g.setColor(backgroundColor);
+            g.fillRect(0, 0, getWidth(), getHeight());
+        }
     }
 
     private void desenharParede(Parede parede, double thickness) {
@@ -88,10 +90,10 @@ public class Renderizador2DPlanta extends JPanel {
 
     public void update() {
         clear();
-
-        for (Parede wall : planta.getWalls()) {
-            desenharParede(wall, 10);
+        if(planta != null && planta.getWalls() != null){
+            planta.getWalls().forEach((wall) -> {
+                desenharParede(wall, 10);
+            });
         }
     }
-
 }

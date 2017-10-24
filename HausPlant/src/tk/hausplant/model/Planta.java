@@ -1,14 +1,26 @@
 package tk.hausplant.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Planta da casa que poderá conter paredes, móveis e telhados
  */
-public class Planta {
+public class Planta implements Serializable {
 
-    private final List<Parede> walls = new ArrayList<>();
+    private String descricao;
+    
+    private final List<Parede> walls;
+
+    public Planta() {
+        walls = new ArrayList<>();
+    }
+    
+    public Planta(String descricao, List<Parede> paredes) {
+        this.descricao = descricao;
+        this.walls = paredes;
+    }
 
     public List<Parede> getWalls() {
         return walls;
@@ -17,5 +29,13 @@ public class Planta {
     public void addWall(Parede wall) {
         this.walls.add(wall);
     }
+    
+    public String getDescricao() {
+        return descricao;
+    }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+  
 }
