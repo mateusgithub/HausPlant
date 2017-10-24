@@ -22,22 +22,24 @@ public class Movel extends Objeto3D implements Desenhavel {
     public void setX(float x) {
         this.x = x;
     }
-    
+
     @Override
     public void setY(float y) {
         this.y = y;
     }
-    
+
     @Override
     public void setZ(float z) {
         this.z = z;
+    }
+
+    public Model getModelo() {
+        return modelo;
     }
 
     @Override
     public void desenhar2DEm(Graphics graficos2d) {
         // TODO
     }
-    
-    
 
 }
