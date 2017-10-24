@@ -42,18 +42,19 @@ public class Renderizador2DPlanta extends JPanel {
 
     private void clear() {
         Graphics g = getGraphics();
-
-        g.setColor(backgroundColor);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        
+        if(g != null){
+            g.setColor(backgroundColor);
+            g.fillRect(0, 0, getWidth(), getHeight());
+        }
     }
 
     public void update() {
         clear();
 
         for (Parede wall : planta.getWalls()) {
-            System.out.println("OK");
+            desenharParede(wall, 10);
             wall.desenhar2DEm(getGraphics());
         }
     }
-
 }
