@@ -35,7 +35,7 @@ public class Renderizador2DPlanta extends JPanel {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                update();
+                atualizar();
             }
         });
     }
@@ -49,10 +49,10 @@ public class Renderizador2DPlanta extends JPanel {
         }
     }
 
-    public void update() {
+    public void atualizar() {
         clear();
 
-        for (Parede wall : planta.getWalls()) {
+        for (Parede wall : planta.getParedes()) {
             wall.desenhar2DEm(getGraphics());
         }
     }
