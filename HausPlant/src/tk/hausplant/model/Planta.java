@@ -10,26 +10,26 @@ import java.util.List;
 public class Planta implements Serializable {
 
     private String descricao;
-    
-    private final List<Parede> walls;
+
+    private final List<Parede> paredes;
 
     public Planta() {
-        walls = new ArrayList<>();
+        paredes = new ArrayList<>();
     }
-    
+
     public Planta(String descricao, List<Parede> paredes) {
         this.descricao = descricao;
-        this.walls = paredes;
+        this.paredes = paredes;
     }
 
-    public List<Parede> getWalls() {
-        return walls;
+    public List<Parede> getParedes() {
+        return paredes;
     }
 
-    public void addWall(Parede wall) {
-        this.walls.add(wall);
+    public void addParede(Parede parede) {
+        this.paredes.add(parede);
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
@@ -37,5 +37,5 @@ public class Planta implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-  
+
 }
