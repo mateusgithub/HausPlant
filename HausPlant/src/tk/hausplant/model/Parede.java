@@ -7,20 +7,33 @@ import java.awt.Polygon;
 import java.io.Serializable;
 
 public class Parede extends Objeto3D implements Serializable, Desenhavel {
-    
+
+    /**
+     * Cor da parede pardrão
+     */
+    public transient static final Color COR_PADRAO = new Color(100, 100, 100);
+
     /**
      * Altura da parede padrão em metros (3D)
      */
-    public transient static final float ALTURA_PADRAO = 3;
+    public transient static final double ALTURA_PADRAO = 3;
 
-    private final Point a, b;
+    /**
+     * Largura da parede padrão em metros (3D)
+     */
+    public transient static final double LARGURA_PADRAO = 0.2;
 
     /**
      * Largura da parede quando desenhada em pixels (2D)
      */
-    private final double largura = 5;
+    public transient static final double LARGURA_PADRAO_PX = 5;
 
-    private transient boolean selected = false;
+    /**
+     * Extremidades desta parede representada por dois pontos
+     */
+    private final Point a, b;
+
+    private transient boolean selecionado = false;
 
     public Parede(int x1, int y1, int x2, int y2) {
         this.a = new Point(x1, y1);
@@ -45,12 +58,12 @@ public class Parede extends Objeto3D implements Serializable, Desenhavel {
         return b;
     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
     }
 
     public boolean isSelected() {
-        return selected;
+        return selecionado;
     }
 
     @Override
@@ -65,7 +78,7 @@ public class Parede extends Objeto3D implements Serializable, Desenhavel {
 
         c1 = dir.getOrthogonal();
         c1.normalize();
-        c1 = c1.times(largura / 2);
+        c1 = c1.times(LARGURA_PADRAO_PX / 2);
 
         c2 = c1.plus(dir);
 
