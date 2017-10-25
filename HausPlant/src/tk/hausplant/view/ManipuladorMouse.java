@@ -24,34 +24,34 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     private final Planta planta;
 
-    private final Renderizador2DPlanta viewer;
+    private final Renderizador2DPlanta renderizador;
 
-    private Point lastPoint = null;
+    private Point ultimaPosicaoMouse = null;
 
-    private boolean creatingWall = false;
+    private boolean criandoParede = false;
 
-    private boolean editingWall = false;
+    private boolean editandoParede = false;
 
-    private Canto selectedWallCorner = Canto.CantoA;
+    private Canto cantoSelecinado = Canto.CantoA;
 
-    private Parede activeWall = null;
+    private Parede paredeSelecionada = null;
 
     public ManipuladorMouse(Planta planta, Renderizador2DPlanta viewer) {
         this.planta = planta;
-        this.viewer = viewer;
+        this.renderizador = viewer;
     }
 
     private void clearSelection() {
-        if (activeWall != null) {
-            activeWall.setSelected(false);
+        if (paredeSelecionada != null) {
+            paredeSelecionada.setSelecionado(false);
         }
-        viewer.update();
+        renderizador.atualizar();
     }
 
-    private void selectWall(Parede wall) {
-        activeWall = wall;
-        wall.setSelected(true);
-        viewer.update();
+    private void selecionarParede(Parede parede) {
+        paredeSelecionada = parede;
+        parede.setSelecionado(true);
+        renderizador.atualizar();
     }
 
     @Override
@@ -62,23 +62,23 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
     public void mousePressed(MouseEvent e) {
         clearSelection();
 
-        if (creatingWall || editingWall) {
-            creatingWall = false;
-            editingWall = false;
+        if (criandoParede || editandoParede) {
+            criandoParede = false;
+            editandoParede = false;
         } else {
-            Point pos = e.getPoint();
+            Point posicaoMouse = e.getPoint();
 
-            // Check cursor position if it is close to a wall corner
-            for (Parede wall : planta.getWalls()) {
-                if (wall.getA().distance(pos) <= RAIO_ALCANCE) {
-                    selectWall(wall);
-                    editingWall = true;
-                    selectedWallCorner = Canto.CantoA;
+            // Verificar se a posição do cursor está próxima à algum canto de parede
+            for (Parede wall : planta.getParedes()) {
+                if (wall.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
+                    selecionarParede(wall);
+                    editandoParede = true;
+                    cantoSelecinado = Canto.CantoA;
                     break;
-                } else if (wall.getB().distance(pos) <= RAIO_ALCANCE) {
-                    selectWall(wall);
-                    editingWall = true;
-                    selectedWallCorner = Canto.CantoB;
+                } else if (wall.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
+                    selecionarParede(wall);
+                    editandoParede = true;
+                    cantoSelecinado = Canto.CantoB;
                     break;
                 }
             }
@@ -89,9 +89,9 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
     public void mouseReleased(MouseEvent e) {
         clearSelection();
 
-        creatingWall = false;
-        lastPoint = null;
-        editingWall = false;
+        criandoParede = false;
+        ultimaPosicaoMouse = null;
+        editandoParede = false;
     }
 
     @Override
@@ -104,32 +104,32 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Point currentPoint = e.getPoint();
+        Point pontoAtual = e.getPoint();
 
-        if (lastPoint != null) {
-            if (creatingWall) {
-                activeWall.setB(currentPoint.x, currentPoint.y);
-                viewer.update();
-            } else if (editingWall) {
-                if (selectedWallCorner == Canto.CantoA) {
-                    activeWall.setA(currentPoint.x, currentPoint.y);
+        if (ultimaPosicaoMouse != null) {
+            if (criandoParede) {
+                paredeSelecionada.setB(pontoAtual.x, pontoAtual.y);
+                renderizador.atualizar();
+            } else if (editandoParede) {
+                if (cantoSelecinado == Canto.CantoA) {
+                    paredeSelecionada.setA(pontoAtual.x, pontoAtual.y);
                 } else {
-                    activeWall.setB(currentPoint.x, currentPoint.y);
+                    paredeSelecionada.setB(pontoAtual.x, pontoAtual.y);
                 }
-                viewer.update();
+                renderizador.atualizar();
             } else {
-                selectWall(new Parede(lastPoint.x, lastPoint.y, currentPoint.x, currentPoint.y));
-                planta.addWall(activeWall);
-                creatingWall = true;
+                selecionarParede(new Parede(ultimaPosicaoMouse.x, ultimaPosicaoMouse.y, pontoAtual.x, pontoAtual.y));
+                planta.addParede(paredeSelecionada);
+                criandoParede = true;
             }
         }
 
-        lastPoint = currentPoint;
+        ultimaPosicaoMouse = pontoAtual;
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-         viewer.update();
+        renderizador.atualizar();
     }
 
     @Override
