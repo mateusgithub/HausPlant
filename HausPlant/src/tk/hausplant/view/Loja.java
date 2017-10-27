@@ -28,7 +28,7 @@ public class Loja extends javax.swing.JFrame {
 
         setLocationRelativeTo(null);
 
-        List<ItemLoja> itens = ItemLojaDAO.lerItens(indiceItens);
+        List<ItemLoja> itens = ItemLojaDAO.lerItensCSV(indiceItens);
 
         for (ItemLoja item : itens) {
             container.add(item);
