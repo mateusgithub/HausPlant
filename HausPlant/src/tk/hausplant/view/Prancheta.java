@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 import java.awt.Color;
@@ -8,21 +14,21 @@ import tk.hausplant.model.Planta;
  * Janela onde serão exibidos controles para manipulação da Planta
  */
 public class Prancheta extends javax.swing.JFrame {
-    
+
     /**
      * Quantidade de pixels por metro (para converter pixel para metro)
      */
     public static final float PIXELS_POR_METRO = 25;
-    
+
     private final Planta planta;
 
     public Prancheta(Planta planta, Color corFundo) {
         initComponents();
-        
+
         this.planta = planta;
 
         Renderizador2DPlanta renderizador2D = new Renderizador2DPlanta(planta, corFundo);
-        
+
         container.add(renderizador2D);
 
         setLocationRelativeTo(null);
@@ -36,9 +42,10 @@ public class Prancheta extends javax.swing.JFrame {
         setVisible(false);
     }
 
-    public void closeWindow(){
+    public void closeWindow() {
         dispose();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,14 +130,14 @@ public class Prancheta extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.closeWindow();
         PlantaController plantaController = new PlantaController();
-        Planta planta =  plantaController.carregar();
+        Planta planta = plantaController.carregar();
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         PlantaController plantaController = new PlantaController();
-         plantaController.salvar(planta);
+        PlantaController plantaController = new PlantaController();
+        plantaController.salvar(planta);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -143,7 +150,7 @@ public class Prancheta extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Renderizador3DPlanta renderizador3D = new Renderizador3DPlanta(planta);
-        
+
         renderizador3D.mostrarVisualizacao();
     }//GEN-LAST:event_jButton5ActionPerformed
 

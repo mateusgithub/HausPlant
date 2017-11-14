@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 import java.awt.Color;

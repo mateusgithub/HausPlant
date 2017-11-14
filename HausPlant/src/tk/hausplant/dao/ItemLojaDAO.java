@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
  */
 package tk.hausplant.dao;
 
@@ -14,13 +15,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import spacedrawboard.resource.Triangle;
-import spacedrawboard.resource.Vector3D;
 import tk.hausplant.view.ItemLoja;
 import tk.hausplant.view.Loja;
 

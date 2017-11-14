@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.dao;
 
 import java.awt.Color;
@@ -15,13 +21,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Mesh;
-import spacedrawboard.resource.Model;
 import spacedrawboard.resource.Triangle;
 import spacedrawboard.resource.Vector3D;
 import spacedrawboard.visualization.Drawboard;
 import spacedrawboard.visualization.Visualization;
 import tk.hausplant.model.Movel;
-import tk.hausplant.model.Parede;
 
 /**
  * Responsável por manipular arquivos relacionados à Movel

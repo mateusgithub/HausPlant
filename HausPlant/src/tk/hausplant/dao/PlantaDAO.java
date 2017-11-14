@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.dao;
 
 import java.io.BufferedReader;
@@ -17,11 +23,11 @@ import tk.hausplant.model.Planta;
 
 /**
  * Classe responsável pela leitura e escrita do objeto Planta em arquivo
- * 
+ *
  * @author mateus
  */
 public class PlantaDAO {
-    
+
     private static final Logger LOG = Logger.getLogger(PlantaDAO.class.getName());
     private static final String PLANTA_DEFAULT = "Planta.csv";
     private static final String SERIAL_FILENAME = "planta.dat";
@@ -35,7 +41,7 @@ public class PlantaDAO {
         this.arquivoCsv = FileSystems.getDefault().getPath(PLANTA_DEFAULT);
         this.arquivoSerializado = FileSystems.getDefault().getPath(SERIAL_FILENAME);
     }
-    
+
     /**
      * Salva os dados da Planta em formato serializado.
      *
@@ -50,26 +56,26 @@ public class PlantaDAO {
             LOG.log(Level.SEVERE, "Erro ao salvar", ex);
         }
     }
-    
+
     /**
-     * Metodo que verifica existencia do arquivo e decide
-     * se deve ler serializado ou do arquivo .csv
-     * 
+     * Metodo que verifica existencia do arquivo e decide se deve ler
+     * serializado ou do arquivo .csv
+     *
      * @return Planta com descricao e paredes
      */
-    public Planta carregar(){
-        if(Files.exists(arquivoSerializado)){
+    public Planta carregar() {
+        if (Files.exists(arquivoSerializado)) {
             LOG.info("Arquivo planta serializada");
             return carregarSerializado();
-        }else{
-             LOG.info("Arquivo planta.csv");
-             return new Planta(carregarDescricaoPlanta(), carregarParedesPlanta());
+        } else {
+            LOG.info("Arquivo planta.csv");
+            return new Planta(carregarDescricaoPlanta(), carregarParedesPlanta());
         }
     }
-    
+
     /**
      * Carrega arquivo Planta serializado
-     * 
+     *
      * @return Planta
      */
     private Planta carregarSerializado() {
@@ -84,10 +90,10 @@ public class PlantaDAO {
         }
         return dados;
     }
-    
+
     /**
      * Carrega a descricao da planta
-     * 
+     *
      * @return Descrição da planta
      */
     private String carregarDescricaoPlanta() {
@@ -101,10 +107,10 @@ public class PlantaDAO {
         }
         return null;
     }
-       
+
     /**
      * Carregar as cordenadas e monta as paredes da Planta
-     * 
+     *
      * @return Lista de paredes da planta
      */
     private List<Parede> carregarParedesPlanta() {

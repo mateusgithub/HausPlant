@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 import java.awt.Color;
@@ -42,8 +48,8 @@ public class Renderizador2DPlanta extends JPanel {
 
     private void clear() {
         Graphics g = getGraphics();
-        
-        if(g != null){
+
+        if (g != null) {
             g.setColor(backgroundColor);
             g.fillRect(0, 0, getWidth(), getHeight());
         }

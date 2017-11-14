@@ -1,9 +1,14 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
 import tk.hausplant.dao.ItemLojaDAO;
