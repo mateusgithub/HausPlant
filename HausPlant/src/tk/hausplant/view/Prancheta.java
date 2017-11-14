@@ -1,6 +1,13 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 import java.awt.Color;
+import java.io.File;
 import tk.hausplant.controller.PlantaController;
 import tk.hausplant.model.Planta;
 
@@ -8,21 +15,23 @@ import tk.hausplant.model.Planta;
  * Janela onde serão exibidos controles para manipulação da Planta
  */
 public class Prancheta extends javax.swing.JFrame {
-    
+
+    private static final String PLANTA_PADRAO = "planta.dat";
+
     /**
      * Quantidade de pixels por metro (para converter pixel para metro)
      */
     public static final float PIXELS_POR_METRO = 25;
-    
+
     private final Planta planta;
 
     public Prancheta(Planta planta, Color corFundo) {
         initComponents();
-        
+
         this.planta = planta;
 
         Renderizador2DPlanta renderizador2D = new Renderizador2DPlanta(planta, corFundo);
-        
+
         container.add(renderizador2D);
 
         setLocationRelativeTo(null);
@@ -36,9 +45,10 @@ public class Prancheta extends javax.swing.JFrame {
         setVisible(false);
     }
 
-    public void closeWindow(){
+    public void closeWindow() {
         dispose();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,11 +60,12 @@ public class Prancheta extends javax.swing.JFrame {
 
         container = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        carregarPlantaPadrao = new javax.swing.JButton();
+        carregarPlanta = new javax.swing.JButton();
+        inserirMovel = new javax.swing.JButton();
+        exibirVisualizacao3D = new javax.swing.JButton();
+        salvarPlanta = new javax.swing.JButton();
+        botaoFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,51 +73,59 @@ public class Prancheta extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
-        jButton1.setText("Carregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        carregarPlantaPadrao.setText("Carregar Planta Padrão");
+        carregarPlantaPadrao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                carregarPlantaPadraoActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
+        jPanel2.add(carregarPlantaPadrao);
 
-        jButton4.setText("Inserir Móvel");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        carregarPlanta.setText("Carregar");
+        carregarPlanta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                carregarPlantaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4);
+        jPanel2.add(carregarPlanta);
 
-        jButton5.setText("Visualização 3D");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        inserirMovel.setText("Inserir Móvel");
+        inserirMovel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                inserirMovelActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton5);
+        jPanel2.add(inserirMovel);
 
-        jButton2.setText("Salvar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        exibirVisualizacao3D.setText("Visualização 3D");
+        exibirVisualizacao3D.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                exibirVisualizacao3DActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel2.add(exibirVisualizacao3D);
 
-        jButton3.setText("Fechar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        salvarPlanta.setText("Salvar");
+        salvarPlanta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                salvarPlantaActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3);
+        jPanel2.add(salvarPlanta);
+
+        botaoFechar.setText("Fechar");
+        botaoFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoFecharActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botaoFechar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -114,46 +133,67 @@ public class Prancheta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE))
+                .addComponent(container, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.closeWindow();
+    private void carregarPlantaPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarPlantaPadraoActionPerformed
+        this.dispose();
+
         PlantaController plantaController = new PlantaController();
-        Planta planta =  plantaController.carregar();
+        Planta planta = plantaController.carregar(new File(PLANTA_PADRAO));
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_carregarPlantaPadraoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         PlantaController plantaController = new PlantaController();
-         plantaController.salvar(planta);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void salvarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarPlantaActionPerformed
+        File local = TelasPopup.obterArquivoParaSalvar();
+        if (local == null) {
+            return;
+        }
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        PlantaController plantaController = new PlantaController();
+        plantaController.salvar(planta, local);
+    }//GEN-LAST:event_salvarPlantaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
+        dispose();
+    }//GEN-LAST:event_botaoFecharActionPerformed
+
+    private void inserirMovelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirMovelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_inserirMovelActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void exibirVisualizacao3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirVisualizacao3DActionPerformed
         Renderizador3DPlanta renderizador3D = new Renderizador3DPlanta(planta);
-        
+
         renderizador3D.mostrarVisualizacao();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_exibirVisualizacao3DActionPerformed
+
+    private void carregarPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarPlantaActionPerformed
+        File arquivo = TelasPopup.obterArquivoParaAbrir();
+        if (arquivo == null) {
+            return;
+        }
+
+        this.dispose();
+
+        PlantaController plantaController = new PlantaController();
+        Planta planta = plantaController.carregar(arquivo);
+        Prancheta prancheta = new Prancheta(planta, Color.white);
+        prancheta.showWindow();
+    }//GEN-LAST:event_carregarPlantaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoFechar;
+    private javax.swing.JButton carregarPlanta;
+    private javax.swing.JButton carregarPlantaPadrao;
     private javax.swing.JPanel container;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton exibirVisualizacao3D;
+    private javax.swing.JButton inserirMovel;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton salvarPlanta;
     // End of variables declaration//GEN-END:variables
 }

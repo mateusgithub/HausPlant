@@ -1,3 +1,9 @@
+/**
+ * HausPlant
+ *
+ * 2017
+ * Equipe desenvolvedora do HausPlant
+ */
 package tk.hausplant.view;
 
 /**
@@ -21,13 +27,13 @@ public class ItemLoja extends javax.swing.JPanel {
     private final String localModelo;
 
     public ItemLoja(String nome, String localFoto, String localModelo) {
-        
+
         initComponents();
-        
+
         this.nome = nome;
         this.localFoto = localFoto;
         this.localModelo = localModelo;
-        
+
         nomeLabel.setText(nome);
     }
 
