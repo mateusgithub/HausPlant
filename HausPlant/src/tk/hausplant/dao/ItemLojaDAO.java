@@ -114,7 +114,5 @@ public class ItemLojaDAO {
             System.out.println(a.getNome()+", " + a.getLocalFoto() + ", " +  a.getLocalModelo() );
         }
          */
-        Loja loja = new Loja(Paths.get("teste.txt"));
-        loja.setVisible(true);
     }
 }

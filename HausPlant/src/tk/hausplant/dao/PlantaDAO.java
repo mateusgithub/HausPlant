@@ -39,7 +39,7 @@ public class PlantaDAO {
      * @param planta Referência para objeto com dados pré-carregados
      * @param arquivoSerializado Local para salvar o arquivo
      */
-    public void salvar(Planta planta, File arquivoSerializado) {
+    public static void salvar(Planta planta, File arquivoSerializado) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(
                     Files.newOutputStream(arquivoSerializado.toPath()));
@@ -55,7 +55,7 @@ public class PlantaDAO {
      *
      * @return Planta com descricao e paredes
      */
-    public Planta carregar(File arquivoSerializado) {
+    public static Planta carregar(File arquivoSerializado) {
         if (arquivoSerializado.exists()) {
             LOG.info("Arquivo planta serializada");
             return carregarSerializado(arquivoSerializado);
@@ -70,7 +70,7 @@ public class PlantaDAO {
      *
      * @return Planta
      */
-    private Planta carregarSerializado(File arquivoSerializado) {
+    private static Planta carregarSerializado(File arquivoSerializado) {
         ObjectInputStream is;
         Planta dados = null;
         try {
@@ -87,7 +87,7 @@ public class PlantaDAO {
      * Carregar uma planta a partir e um arquivo. Carrega as cordenadas e monta
      * as paredes da Planta
      */
-    private Planta carregarPlanta(File arquivo) {
+    private static Planta carregarPlanta(File arquivo) {
         Planta planta = new Planta();
 
         BufferedReader source;
