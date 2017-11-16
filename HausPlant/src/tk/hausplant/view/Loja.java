@@ -6,6 +6,9 @@
  */
 package tk.hausplant.view;
 
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
@@ -40,6 +43,21 @@ public class Loja extends javax.swing.JFrame {
         List<ItemLoja> itens = ItemLojaDAO.lerItensCSV(indiceItens);
 
         for (ItemLoja item : itens) {
+            // Adicionar evento ao item
+            
+            item.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    
+                    Color cor =  TelasPopup.obterCor();
+                    
+                    System.out.println(item.getNome());
+                    
+                    dispose();
+                    
+                }
+            });
+                    
             container.add(item);
         }
         this.planta = planta;
