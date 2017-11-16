@@ -8,6 +8,11 @@ package tk.hausplant.view;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tk.hausplant.controller.LojaController;
 import tk.hausplant.controller.PlantaController;
 import tk.hausplant.model.Planta;
 
@@ -154,8 +159,7 @@ public class Prancheta extends javax.swing.JFrame {
             return;
         }
 
-        PlantaController plantaController = new PlantaController();
-        plantaController.salvar(planta, local);
+        PlantaController.salvar(planta, local);
     }//GEN-LAST:event_salvarPlantaActionPerformed
 
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
@@ -163,7 +167,13 @@ public class Prancheta extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoFecharActionPerformed
 
     private void inserirMovelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirMovelActionPerformed
-        // TODO add your handling code here:
+        try {
+            LojaController.adicionarMovel(planta);
+        } catch (IOException ex) {
+            TelasPopup.mostrarMensagem("Falha ao carregar itens da loja");
+        } catch (ParseException ex) {
+            TelasPopup.mostrarMensagem("Falha ao interpretar itens da loja");
+        }
     }//GEN-LAST:event_inserirMovelActionPerformed
 
     private void exibirVisualizacao3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirVisualizacao3DActionPerformed

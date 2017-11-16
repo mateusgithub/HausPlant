@@ -6,7 +6,9 @@
  */
 package tk.hausplant.view;
 
+import java.awt.Color;
 import java.io.File;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -76,4 +78,8 @@ public class TelasPopup {
         JOptionPane.showMessageDialog(null, mensagem);
     }
 
+    public static Color obterCor(){
+        return JColorChooser.showDialog(null, "Escolha uma cor", Color.RED);
+    }
+    
 }

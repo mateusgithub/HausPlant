@@ -8,11 +8,11 @@ package tk.hausplant.dao;
 
 import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +26,7 @@ import spacedrawboard.resource.Vector3D;
 import spacedrawboard.visualization.Drawboard;
 import spacedrawboard.visualization.Visualization;
 import tk.hausplant.model.Movel;
+import tk.hausplant.view.TelasPopup;
 
 /**
  * Responsável por manipular arquivos relacionados à Movel
@@ -147,7 +148,7 @@ public class MovelDAO {
             }
         } catch (IOException ex) {
             Logger.getLogger(PlantaDAO.class.getName()).
-                    log(Level.SEVERE, "Falha ao ler arquivo planta csv", ex);
+                    log(Level.SEVERE, "Falha ao ler arquivo do móvel stl", ex);
         }
 
         Material material;
@@ -162,11 +163,24 @@ public class MovelDAO {
     }
 
     public static void main(String args[]) {
-        Drawboard d = new Drawboard();
-
-        Movel m = null;
+        
         try {
-            m = MovelDAO.carregarMovelSTL(Paths.get("modeloteste.stl"));
+            File dir = new File("modelos");
+            File[] directoryListing = dir.listFiles();
+            if (directoryListing != null) {
+                for (File child : directoryListing) {
+                    Drawboard drawboard = new Drawboard();
+
+                    Movel movel = MovelDAO.carregarMovelSTL(child.toPath());
+                    
+                    drawboard.addModel(movel.getModelo());
+
+                    Visualization v = new Visualization(child.getName(), 750, 450, drawboard);
+                    v.showWindow();
+                }
+            } else {
+
+            }
         } catch (IOException ex) {
             Logger.getLogger(MovelDAO.class.getName()).log(Level.SEVERE, null, ex);
             return;
@@ -175,10 +189,6 @@ public class MovelDAO {
             return;
         }
 
-        d.addModel(m.getModelo());
-
-        Visualization v = new Visualization("Movel", 750, 450, d);
-        v.showWindow();
     }
 
 }

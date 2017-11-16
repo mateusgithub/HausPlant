@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.logging.Logger;
 import tk.hausplant.dao.PlantaDAO;
 import tk.hausplant.model.Planta;
+import tk.hausplant.view.Loja;
 
 /**
  * Controller responsável pelas regras de negócio de Planta
@@ -21,21 +22,18 @@ public class PlantaController {
     private static final String EXTENSAO_PADRAO = ".csv";
 
     private static final Logger LOG = Logger.getLogger(PlantaController.class.getName());
-    private PlantaDAO plantaDAO;
 
-    public Planta carregar(File arquivo) {
+    public static Planta carregar(File arquivo) {
         LOG.info("Carregando planta");
-        plantaDAO = new PlantaDAO();
-        return plantaDAO.carregar(arquivo);
+        return PlantaDAO.carregar(arquivo);
     }
 
-    public void salvar(Planta planta, File arquivo) {
+    public static void salvar(Planta planta, File arquivo) {
         if (!arquivo.toPath().toString().endsWith(EXTENSAO_SERIALIZADO)) {
             arquivo = new File(arquivo.toPath() + EXTENSAO_SERIALIZADO);
         }
         
         LOG.info("Salvando planta");
-        plantaDAO = new PlantaDAO();
-        plantaDAO.salvar(planta, arquivo);
+        PlantaDAO.salvar(planta, arquivo);
     }
 }
