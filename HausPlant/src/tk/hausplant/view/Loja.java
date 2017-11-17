@@ -39,6 +39,9 @@ public class Loja extends javax.swing.JFrame {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         setLocationRelativeTo(null);
+        
+        // Ajustar velocidade do scroll
+        scroll.getVerticalScrollBar().setUnitIncrement(16);
 
         List<ItemLoja> itens = ItemLojaDAO.lerItensCSV(indiceItens);
 
