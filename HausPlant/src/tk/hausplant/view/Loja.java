@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import tk.hausplant.dao.ItemLojaDAO;
 import tk.hausplant.model.Planta;
