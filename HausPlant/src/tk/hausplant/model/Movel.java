@@ -12,6 +12,7 @@ import java.awt.Graphics;
 import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Mesh;
 import spacedrawboard.resource.Model;
+import spacedrawboard.visualization.Drawboard;
 import tk.hausplant.view.Prancheta;
 
 /**
@@ -56,10 +57,6 @@ public class Movel extends Objeto3D implements Desenhavel {
         this.z = z;
     }
 
-    public Model getModelo() {
-        return modelo;
-    }
-
     public Color getCor() {
         return cor;
     }
@@ -78,6 +75,11 @@ public class Movel extends Objeto3D implements Desenhavel {
                 tamanho.width,
                 tamanho.height
         );
+    }
+
+    @Override
+    public void desenhar3DEm(Drawboard drawboard) {
+        drawboard.addModel(modelo);
     }
 
 }
