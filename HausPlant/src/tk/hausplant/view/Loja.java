@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import tk.hausplant.dao.ItemLojaDAO;
 import tk.hausplant.model.Planta;
@@ -39,31 +41,72 @@ public class Loja extends javax.swing.JFrame {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         setLocationRelativeTo(null);
-        
+
         // Ajustar velocidade do scroll
         scroll.getVerticalScrollBar().setUnitIncrement(16);
-
-        List<ItemLoja> itens = ItemLojaDAO.lerItensCSV(indiceItens);
-
-        for (ItemLoja item : itens) {
-            // Adicionar evento ao item
-            
-            item.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent me) {
-                    
-                    Color cor =  TelasPopup.obterCor();
-                    
-                    System.out.println(item.getNome());
-                    
-                    dispose();
-                    
-                }
-            });
-                    
-            container.add(item);
-        }
         this.planta = planta;
+
+        carregarItensDaLoja(indiceItens);
+    }
+
+    private void erroCarregarLoja() {
+        TelasPopup.mostrarMensagem("Erro ao carregar itens da loja, "
+                + "verifique a presença do arquivo de índice");
+        dispose();
+    }
+
+    private static class CarregadorDeItens implements Runnable {
+
+        private final Loja loja;
+
+        private final Path indiceItens;
+
+        public CarregadorDeItens(Loja loja, Path indiceItens) {
+            this.loja = loja;
+            this.indiceItens = indiceItens;
+        }
+
+        @Override
+        public void run() {
+
+            List<ItemLoja> itens;
+            try {
+                itens = ItemLojaDAO.lerItensCSV(indiceItens);
+            } catch (ParseException ex) {
+                loja.erroCarregarLoja();
+                return;
+            } catch (IOException ex) {
+                loja.erroCarregarLoja();
+                return;
+            }
+
+            for (ItemLoja item : itens) {
+                // Adicionar evento ao item
+
+                item.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent me) {
+                        Color cor = TelasPopup.obterCor();
+
+                        System.out.println(item.getNome());
+
+                        loja.dispose();
+                    }
+                });
+
+                loja.container.add(item);
+            }
+        }
+    }
+
+    /**
+     * Método assíncrono para carregar itens da loja
+     *
+     * @param indiceItens
+     */
+    private void carregarItensDaLoja(final Path indiceItens) throws ParseException, IOException {
+        CarregadorDeItens carregador = new CarregadorDeItens(this, indiceItens);
+        carregador.run();
     }
 
     /**
