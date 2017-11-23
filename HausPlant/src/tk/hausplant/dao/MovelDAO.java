@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Mesh;
 import spacedrawboard.resource.Triangle;
 import spacedrawboard.resource.Vector3D;
@@ -98,7 +97,7 @@ public class MovelDAO {
     }
 
     public static void main(String args[]) {
-        
+
         try {
             File dir = new File("modelos");
             File[] directoryListing = dir.listFiles();
@@ -107,8 +106,8 @@ public class MovelDAO {
                     Drawboard drawboard = new Drawboard();
 
                     Movel movel = MovelDAO.carregarMovelSTL(child.toPath());
-                    
-                    drawboard.addModel(movel.getModelo());
+
+                    movel.desenhar3DEm(drawboard);
 
                     Visualization v = new Visualization(child.getName(), 750, 450, drawboard);
                     v.showWindow();
