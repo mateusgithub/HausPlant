@@ -7,10 +7,12 @@
 package tk.hausplant.model;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Mesh;
 import spacedrawboard.resource.Model;
+import tk.hausplant.view.Prancheta;
 
 /**
  * Objeto tridimensional que pode ser colocado na planta
@@ -18,10 +20,25 @@ import spacedrawboard.resource.Model;
 public class Movel extends Objeto3D implements Desenhavel {
 
     public static final Color COR_PADRAO = Color.gray;
+
     private final Model modelo;
 
-    public Movel(Mesh forma, Material material) {
+    private final Color cor;
+
+    public Movel(Mesh forma, Color cor) {
+        Material material = new Material(cor);
+
         modelo = new Model(forma, material);
+        this.cor = cor;
+    }
+
+    /**
+     * Obter dimensão do movel desenhado sobre a prancheta em pixels
+     *
+     * @return
+     */
+    private Dimension getDimension2D() {
+        return new Dimension(90, 90);
     }
 
     @Override
@@ -43,9 +60,24 @@ public class Movel extends Objeto3D implements Desenhavel {
         return modelo;
     }
 
+    public Color getCor() {
+        return cor;
+    }
+
     @Override
     public void desenhar2DEm(Graphics graficos2d) {
-        // TODO
+        float s = Prancheta.PIXELS_POR_METRO;
+
+        Dimension tamanho = getDimension2D();
+
+        graficos2d.setColor(COR_PADRAO);
+
+        graficos2d.drawRect(
+                (int) (x * s),
+                (int) (y * s),
+                tamanho.width,
+                tamanho.height
+        );
     }
 
 }
