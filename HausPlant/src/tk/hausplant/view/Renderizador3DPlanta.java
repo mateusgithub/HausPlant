@@ -71,14 +71,19 @@ public class Renderizador3DPlanta {
             somaX += (parede.getA().x + parede.getB().x) / 2;
             somaY += (-parede.getA().y - parede.getB().y) / 2;
         }
+        
+        for (Movel movel : planta.getMoveis()) {
+            somaX += movel.getX();
+            somaY += movel.getY();
+        }
 
         double centroX = 0, centroY = 0;
 
-        int numeroParedes = planta.getParedes().size();
+        int numeroComponentes = planta.getParedes().size() + planta.getMoveis().size();
 
-        if (numeroParedes > 0) {
-            centroX = (somaX / numeroParedes) / pxMetro;
-            centroY = (somaY / numeroParedes) / pxMetro;
+        if (numeroComponentes > 0) {
+            centroX = (somaX / numeroComponentes) / pxMetro;
+            centroY = (somaY / numeroComponentes) / pxMetro;
         }
 
         // Mostrar visualização da cena

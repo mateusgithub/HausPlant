@@ -10,8 +10,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import tk.hausplant.controller.LojaController;
 import tk.hausplant.controller.PlantaController;
 import tk.hausplant.model.Planta;
