@@ -28,7 +28,8 @@ import tk.hausplant.model.Movel;
  */
 public class MovelDAO {
 
-    public static Movel carregarMovelSTL(Path caminho) throws IOException, ParseException {
+    public static Movel carregarMovelSTL(Path caminho, Color cor)
+            throws IOException, ParseException {
         Mesh forma = new Mesh();
         BufferedReader source;
         try {
@@ -38,10 +39,8 @@ public class MovelDAO {
 
             // Construir móvel a partir dos triângulos
             while (true) {
-
                 while (line != null && !line.trim().startsWith("outer loop")) {
                     line = source.readLine();
-
                 }
 
                 if (line == null) {
@@ -85,14 +84,6 @@ public class MovelDAO {
                     log(Level.SEVERE, "Falha ao ler arquivo do móvel stl", ex);
         }
 
-        Color cor;
-
-        int r = 191,
-                g = 124,
-                b = 57;
-
-        cor = new Color(r, g, b);
-
         return new Movel(forma, cor);
     }
 
@@ -105,7 +96,9 @@ public class MovelDAO {
                 for (File child : directoryListing) {
                     Drawboard drawboard = new Drawboard();
 
-                    Movel movel = MovelDAO.carregarMovelSTL(child.toPath());
+                    Color cor = new Color(191, 124, 57);
+
+                    Movel movel = MovelDAO.carregarMovelSTL(child.toPath(), cor);
 
                     movel.desenhar3DEm(drawboard);
 

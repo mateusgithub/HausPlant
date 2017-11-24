@@ -7,14 +7,13 @@
 package tk.hausplant.view;
 
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.List;
 import javax.swing.BoxLayout;
-import tk.hausplant.dao.ItemLojaDAO;
+import tk.hausplant.dao.MovelDAO;
+import tk.hausplant.model.Movel;
 import tk.hausplant.model.Planta;
 
 /**
@@ -47,54 +46,34 @@ public class Loja extends javax.swing.JFrame {
         carregarItensDaLoja(indiceItens);
     }
 
-    private void erroCarregarLoja() {
+    public void erroCarregarLoja() {
         TelasPopup.mostrarMensagem("Erro ao carregar itens da loja, "
                 + "verifique a presença do arquivo de índice");
         dispose();
     }
+    
+    public void adicionarItem(ItemLoja item) {
+        container.add(item);
+    }
 
-    private static class CarregadorDeItens implements Runnable {
+    public void escolherMovel(ItemLoja item) {
+        Color cor = TelasPopup.obterCor();
 
-        private final Loja loja;
+        Movel movel;
 
-        private final Path indiceItens;
-
-        public CarregadorDeItens(Loja loja, Path indiceItens) {
-            this.loja = loja;
-            this.indiceItens = indiceItens;
+        try {
+            movel = MovelDAO.carregarMovelSTL(Paths.get(item.getLocalModelo()), cor);
+        } catch (IOException ex) {
+            TelasPopup.mostrarMensagem("Falha ao abrir modelo do móvel");
+            return;
+        } catch (ParseException ex) {
+            TelasPopup.mostrarMensagem("Arquivo do móvel corrompido");
+            return;
         }
 
-        @Override
-        public void run() {
+        planta.addMovel(movel);
 
-            List<ItemLoja> itens;
-            try {
-                itens = ItemLojaDAO.lerItensCSV(indiceItens);
-            } catch (ParseException ex) {
-                loja.erroCarregarLoja();
-                return;
-            } catch (IOException ex) {
-                loja.erroCarregarLoja();
-                return;
-            }
-
-            for (ItemLoja item : itens) {
-                // Adicionar evento ao item
-
-                item.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent me) {
-                        Color cor = TelasPopup.obterCor();
-
-                        System.out.println(item.getNome());
-
-                        loja.dispose();
-                    }
-                });
-
-                loja.container.add(item);
-            }
-        }
+        dispose();
     }
 
     /**
@@ -200,4 +179,5 @@ public class Loja extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
+
 }

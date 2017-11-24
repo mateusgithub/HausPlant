@@ -6,9 +6,11 @@
  */
 package tk.hausplant.view;
 
+import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Vector3D;
 import spacedrawboard.visualization.Drawboard;
 import spacedrawboard.visualization.Visualization;
+import tk.hausplant.model.Movel;
 import tk.hausplant.model.Parede;
 import tk.hausplant.model.Planta;
 
@@ -47,6 +49,11 @@ public class Renderizador3DPlanta {
         // Construir paredes
         for (Parede parede : planta.getParedes()) {
             parede.desenhar3DEm(drawboard);
+        }
+
+        // Inserir móveis
+        for (Movel movel : planta.getMoveis()) {
+            movel.desenhar3DEm(drawboard);
         }
     }
 

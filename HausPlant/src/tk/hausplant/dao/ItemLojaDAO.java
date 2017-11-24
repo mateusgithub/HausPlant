@@ -14,9 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.ArrayList;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import tk.hausplant.view.ItemLoja;
 
 /**
@@ -24,49 +21,6 @@ import tk.hausplant.view.ItemLoja;
  * @author sergio
  */
 public class ItemLojaDAO {
-
-    /**
-     * Ler lista de itens a partir de um arquivo com uma lista de itens no
-     * formato JSON
-     *
-     * @param indiceItens
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    public static List<ItemLoja> lerItens(Path indiceItens)
-            throws IOException, ParseException {
-        List<ItemLoja> lista = new ArrayList<>();
-
-        // Ler conteúdo do arquivo
-        String source = new String(Files.readAllBytes(indiceItens));
-
-        JSONArray arrayJson;
-
-        try {
-            JSONObject objetoJson = new JSONObject(source);
-            arrayJson = objetoJson.getJSONArray("itens");
-        } catch (JSONException exception) {
-            throw new ParseException("Arquivo de índice de itens inválido", -1);
-        }
-
-        for (int i = 0; i < arrayJson.length(); i++) {
-            try {
-                JSONObject objeto = arrayJson.getJSONObject(i);
-
-                String nomeItem = objeto.getString("nome");
-                String localModelo = objeto.getString("localModelo");
-                String localFoto = objeto.getString("localFoto");
-
-                ItemLoja novoItem = new ItemLoja(nomeItem, localFoto, localModelo);
-                lista.add(novoItem);
-            } catch (JSONException exception) {
-                // Ignorar modelo inválido
-            }
-        }
-
-        return lista;
-    }
 
     public static List<ItemLoja> lerItensCSV(Path caminho) throws ParseException, IOException {
 

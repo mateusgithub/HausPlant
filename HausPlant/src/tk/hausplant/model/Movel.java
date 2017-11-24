@@ -9,16 +9,19 @@ package tk.hausplant.model;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.io.Serializable;
 import spacedrawboard.resource.Material;
 import spacedrawboard.resource.Mesh;
 import spacedrawboard.resource.Model;
+import spacedrawboard.resource.Vector3D;
 import spacedrawboard.visualization.Drawboard;
 import tk.hausplant.view.Prancheta;
 
 /**
  * Objeto tridimensional que pode ser colocado na planta
  */
-public class Movel extends Objeto3D implements Desenhavel {
+public class Movel extends Objeto3D implements Desenhavel, Serializable {
 
     public static final Color COR_PADRAO = Color.gray;
 
@@ -29,6 +32,9 @@ public class Movel extends Objeto3D implements Desenhavel {
     public Movel(Mesh forma, Color cor) {
         Material material = new Material(cor);
 
+        this.x = 10;
+        this.y = 10;
+        
         modelo = new Model(forma, material);
         this.cor = cor;
     }
@@ -38,23 +44,35 @@ public class Movel extends Objeto3D implements Desenhavel {
      *
      * @return
      */
-    private Dimension getDimension2D() {
-        return new Dimension(90, 90);
+    public Rectangle getRetangulo() {
+        float s = Prancheta.PIXELS_POR_METRO;
+        return new Rectangle(
+                (int) (x * s), (int) (y * s),
+                30, 30
+        );
     }
 
     @Override
     public void setX(float x) {
+        // Resetar posição
+        modelo.translate(new Vector3D(-this.x, 0, 0));
+        modelo.translate(new Vector3D(x, 0, 0));
+
         this.x = x;
     }
 
     @Override
     public void setY(float y) {
+        // Resetar posição
+        modelo.translate(new Vector3D(0, -this.y, 0));
+        modelo.translate(new Vector3D(0, y, 0));
+
         this.y = y;
     }
 
     @Override
     public void setZ(float z) {
-        this.z = z;
+        // Ignorar
     }
 
     public Color getCor() {
@@ -63,17 +81,13 @@ public class Movel extends Objeto3D implements Desenhavel {
 
     @Override
     public void desenhar2DEm(Graphics graficos2d) {
-        float s = Prancheta.PIXELS_POR_METRO;
+        graficos2d.setColor(cor);
 
-        Dimension tamanho = getDimension2D();
-
-        graficos2d.setColor(COR_PADRAO);
-
-        graficos2d.drawRect(
-                (int) (x * s),
-                (int) (y * s),
-                tamanho.width,
-                tamanho.height
+        Rectangle retangulo = getRetangulo();
+        graficos2d.fillRoundRect(
+                retangulo.x, retangulo.y,
+                retangulo.width, retangulo.height,
+                5, 5
         );
     }
 

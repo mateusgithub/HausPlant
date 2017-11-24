@@ -22,7 +22,7 @@ public class PlantaController {
 
     private static final Logger LOG = Logger.getLogger(PlantaController.class.getName());
 
-    public static Planta carregar(File arquivo) {
+    public static Planta carregar(File arquivo) throws Exception {
         LOG.info("Carregando planta");
         return PlantaDAO.carregar(arquivo);
     }
