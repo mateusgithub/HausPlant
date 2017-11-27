@@ -26,7 +26,7 @@ public class ItemLoja extends javax.swing.JPanel {
      */
     private final String localModelo;
 
-    public ItemLoja(String nome, String localFoto, String localModelo) {
+    public ItemLoja(String nome, String localModelo, String localFoto) {
 
         initComponents();
 

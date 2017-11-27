@@ -10,8 +10,6 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import tk.hausplant.controller.LojaController;
 import tk.hausplant.controller.PlantaController;
 import tk.hausplant.model.Planta;
@@ -148,7 +146,13 @@ public class Prancheta extends javax.swing.JFrame {
         this.dispose();
 
         PlantaController plantaController = new PlantaController();
-        Planta planta = plantaController.carregar(new File(PLANTA_PADRAO));
+        Planta planta;
+        try {
+            planta = plantaController.carregar(new File(PLANTA_PADRAO));
+        } catch (Exception ex) {
+            TelasPopup.mostrarMensagem(ex.getMessage());
+            return;
+        }
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
     }//GEN-LAST:event_carregarPlantaPadraoActionPerformed
@@ -191,7 +195,13 @@ public class Prancheta extends javax.swing.JFrame {
         this.dispose();
 
         PlantaController plantaController = new PlantaController();
-        Planta planta = plantaController.carregar(arquivo);
+        Planta planta;
+        try {
+            planta = plantaController.carregar(arquivo);
+        } catch (Exception ex) {
+            TelasPopup.mostrarMensagem(ex.getMessage());
+            return;
+        }
         Prancheta prancheta = new Prancheta(planta, Color.white);
         prancheta.showWindow();
     }//GEN-LAST:event_carregarPlantaActionPerformed

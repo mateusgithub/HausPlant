@@ -53,15 +53,21 @@ public class PlantaDAO {
      * Metodo que verifica existencia do arquivo e decide se deve ler
      * serializado ou do arquivo .csv
      *
+     * @param arquivo
      * @return Planta com descricao e paredes
      */
-    public static Planta carregar(File arquivoSerializado) {
-        if (arquivoSerializado.exists()) {
-            LOG.info("Arquivo planta serializada");
-            return carregarSerializado(arquivoSerializado);
-        } else {
-            LOG.info("Arquivo planta.csv");
-            return carregarPlanta(arquivoSerializado);
+    public static Planta carregar(File arquivo) throws Exception {
+        if (arquivo.exists()) {
+            if (arquivo.getAbsolutePath().endsWith(".csv")) {
+                LOG.info("Arquivo planta.csv");
+                return carregarPlantaCSV(arquivo);
+            } else {
+                LOG.info("Arquivo planta serializada");
+                return carregarPlantaSerializada(arquivo);
+            }
+        }
+        else{
+            throw new Exception("Arquivo não encontrando");
         }
     }
 
@@ -70,7 +76,7 @@ public class PlantaDAO {
      *
      * @return Planta
      */
-    private static Planta carregarSerializado(File arquivoSerializado) {
+    private static Planta carregarPlantaSerializada(File arquivoSerializado) {
         ObjectInputStream is;
         Planta dados = null;
         try {
@@ -87,7 +93,7 @@ public class PlantaDAO {
      * Carregar uma planta a partir e um arquivo. Carrega as cordenadas e monta
      * as paredes da Planta
      */
-    private static Planta carregarPlanta(File arquivo) {
+    private static Planta carregarPlantaCSV(File arquivo) {
         Planta planta = new Planta();
 
         BufferedReader source;
@@ -105,7 +111,7 @@ public class PlantaDAO {
             Logger.getLogger(PlantaDAO.class.getName()).
                     log(Level.SEVERE, "Falha ao ler arquivo planta csv", ex);
         }
-        
+
         return planta;
     }
 }

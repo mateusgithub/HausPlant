@@ -7,11 +7,11 @@
 package tk.hausplant.view;
 
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
-import javax.swing.event.MouseInputListener;
+import tk.hausplant.model.Movel;
 import tk.hausplant.model.Planta;
 import tk.hausplant.model.Parede;
 
@@ -19,7 +19,7 @@ import tk.hausplant.model.Parede;
  * Receberá eventos ocorridos sobre a Prancheta e fará modificações na planta
  * conforme solicitado pelo usuário
  */
-public class ManipuladorMouse implements MouseListener, MouseWheelListener, MouseInputListener {
+public class ManipuladorMouse extends MouseAdapter {
 
     private static enum Canto {
         CantoA,
@@ -32,15 +32,19 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     private final Renderizador2DPlanta renderizador;
 
-    private Point ultimaPosicaoMouse = null;
+    private Point posMouseAntigo = null;
 
     private boolean criandoParede = false;
 
     private boolean editandoParede = false;
 
+    private boolean movendoMovel = false;
+
     private Canto cantoSelecinado = Canto.CantoA;
 
     private Parede paredeSelecionada = null;
+    
+    private Movel movelSelecionado = null;
 
     public ManipuladorMouse(Planta planta, Renderizador2DPlanta viewer) {
         this.planta = planta;
@@ -62,6 +66,7 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        // Manter
     }
 
     @Override
@@ -74,15 +79,35 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
         } else {
             Point posicaoMouse = e.getPoint();
 
+            // Verificar se a posição do cursor está dentro da área de um móvel
+            for (int i = planta.getMoveis().size()-1; i >= 0; i--) {
+                Movel movel = planta.getMoveis().get(i);
+                
+                Rectangle retangulo = movel.getRetangulo();
+
+                int largura = retangulo.width;
+                int altura = retangulo.height;
+
+                float xMovel = retangulo.x;
+                float yMovel = retangulo.y;
+
+                if (posicaoMouse.x >= xMovel && posicaoMouse.x <= xMovel + largura
+                        && posicaoMouse.y >= yMovel && posicaoMouse.y <= yMovel + altura) {
+                    movendoMovel = true;
+                    movelSelecionado = movel;
+                    break;
+                }
+            }
+
             // Verificar se a posição do cursor está próxima à algum canto de parede
-            for (Parede wall : planta.getParedes()) {
-                if (wall.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
-                    selecionarParede(wall);
+            for (Parede parede : planta.getParedes()) {
+                if (parede.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
+                    selecionarParede(parede);
                     editandoParede = true;
                     cantoSelecinado = Canto.CantoA;
                     break;
-                } else if (wall.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
-                    selecionarParede(wall);
+                } else if (parede.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
+                    selecionarParede(parede);
                     editandoParede = true;
                     cantoSelecinado = Canto.CantoB;
                     break;
@@ -96,41 +121,61 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
         clearSelection();
 
         criandoParede = false;
-        ultimaPosicaoMouse = null;
+        posMouseAntigo = null;
         editandoParede = false;
+        movendoMovel = false;
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
+        // Manter
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+        // Manter
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Point pontoAtual = e.getPoint();
+        Point posMouseAtual = e.getPoint();
 
-        if (ultimaPosicaoMouse != null) {
+        if (posMouseAntigo != null) {
             if (criandoParede) {
-                paredeSelecionada.setB(pontoAtual.x, pontoAtual.y);
+                paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
                 renderizador.atualizar();
             } else if (editandoParede) {
                 if (cantoSelecinado == Canto.CantoA) {
-                    paredeSelecionada.setA(pontoAtual.x, pontoAtual.y);
+                    paredeSelecionada.setA(posMouseAtual.x, posMouseAtual.y);
                 } else {
-                    paredeSelecionada.setB(pontoAtual.x, pontoAtual.y);
+                    paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
                 }
                 renderizador.atualizar();
-            } else {
-                selecionarParede(new Parede(ultimaPosicaoMouse.x, ultimaPosicaoMouse.y, pontoAtual.x, pontoAtual.y));
+            }
+            else if(movendoMovel){
+                float xMovelAntigo = movelSelecionado.getX();
+                float yMovelAntigo = movelSelecionado.getY();
+                
+                float diferencaX = posMouseAtual.x - posMouseAntigo.x;
+                float diferencaY = posMouseAtual.y - posMouseAntigo.y;
+                
+                movelSelecionado.setX(xMovelAntigo + diferencaX / Prancheta.PIXELS_POR_METRO);
+                movelSelecionado.setY(yMovelAntigo + diferencaY / Prancheta.PIXELS_POR_METRO);
+            }
+            else {
+                // Iniciar desenho de nova parede
+                selecionarParede(new Parede(
+                        posMouseAntigo.x, posMouseAntigo.y,
+                        posMouseAtual.x, posMouseAtual.y
+                ));
                 planta.addParede(paredeSelecionada);
                 criandoParede = true;
             }
         }
 
-        ultimaPosicaoMouse = pontoAtual;
+        posMouseAntigo = posMouseAtual;
+        
+        renderizador.atualizar();
     }
 
     @Override
@@ -140,6 +185,7 @@ public class ManipuladorMouse implements MouseListener, MouseWheelListener, Mous
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        // Manter
     }
 
 }
