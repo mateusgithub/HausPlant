@@ -7,7 +7,6 @@
 package tk.hausplant.model;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.io.Serializable;
@@ -31,12 +30,13 @@ public class Movel extends Objeto3D implements Desenhavel, Serializable {
 
     public Movel(Mesh forma, Color cor) {
         Material material = new Material(cor);
-
-        this.x = 10;
-        this.y = 10;
         
         modelo = new Model(forma, material);
+        
         this.cor = cor;
+        
+        setX(10);
+        setY(10);
     }
 
     /**
@@ -64,8 +64,8 @@ public class Movel extends Objeto3D implements Desenhavel, Serializable {
     @Override
     public void setY(float y) {
         // Resetar posição
-        modelo.translate(new Vector3D(0, -this.y, 0));
-        modelo.translate(new Vector3D(0, y, 0));
+        modelo.translate(new Vector3D(0, this.y, 0));
+        modelo.translate(new Vector3D(0, -y, 0));
 
         this.y = y;
     }

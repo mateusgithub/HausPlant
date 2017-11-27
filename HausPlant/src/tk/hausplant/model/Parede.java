@@ -142,7 +142,7 @@ public class Parede extends Objeto3D implements Serializable, Desenhavel {
         Vetor2D perpendicular = paralelo.getOrthogonal();
         perpendicular.normalize();
         Vector3D perp = new Vector3D(perpendicular.x, perpendicular.y, 0);
-        perp = perp.timesScalar(Parede.LARGURA_PADRAO);
+        perp = perp.timesScalar(Parede.LARGURA_PADRAO / 2);
         Vector3D perpNeg = perp.clone().timesScalar(-1);
 
         // Formar os triângulos da parede

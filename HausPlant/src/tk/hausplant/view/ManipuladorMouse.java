@@ -80,7 +80,9 @@ public class ManipuladorMouse extends MouseAdapter {
             Point posicaoMouse = e.getPoint();
 
             // Verificar se a posição do cursor está dentro da área de um móvel
-            for (Movel movel : planta.getMoveis()) {
+            for (int i = planta.getMoveis().size()-1; i >= 0; i--) {
+                Movel movel = planta.getMoveis().get(i);
+                
                 Rectangle retangulo = movel.getRetangulo();
 
                 int largura = retangulo.width;
@@ -93,8 +95,8 @@ public class ManipuladorMouse extends MouseAdapter {
                         && posicaoMouse.y >= yMovel && posicaoMouse.y <= yMovel + altura) {
                     movendoMovel = true;
                     movelSelecionado = movel;
+                    break;
                 }
-                break;
             }
 
             // Verificar se a posição do cursor está próxima à algum canto de parede
