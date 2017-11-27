@@ -10,6 +10,7 @@ import java.io.File;
 import java.util.logging.Logger;
 import tk.hausplant.dao.PlantaDAO;
 import tk.hausplant.model.Planta;
+import tk.hausplant.view.Loja;
 
 /**
  * Controller responsável pelas regras de negócio de Planta

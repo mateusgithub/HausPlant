@@ -22,6 +22,7 @@ import spacedrawboard.resource.Vector3D;
 import spacedrawboard.visualization.Drawboard;
 import spacedrawboard.visualization.Visualization;
 import tk.hausplant.model.Movel;
+import tk.hausplant.view.TelasPopup;
 
 /**
  * Responsável por manipular arquivos relacionados à Movel
@@ -88,7 +89,6 @@ public class MovelDAO {
     }
 
     public static void main(String args[]) {
-
         try {
             File dir = new File("modelos");
             File[] directoryListing = dir.listFiles();

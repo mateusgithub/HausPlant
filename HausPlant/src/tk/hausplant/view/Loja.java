@@ -84,6 +84,25 @@ public class Loja extends javax.swing.JFrame {
     private void carregarItensDaLoja(final Path indiceItens) throws ParseException, IOException {
         CarregadorDeItens carregador = new CarregadorDeItens(this, indiceItens);
         carregador.run();
+
+        for (ItemLoja item : itens) {
+            // Adicionar evento ao item
+            
+            item.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent me) {
+                    
+                    Color cor =  TelasPopup.obterCor();
+                    
+                    System.out.println(item.getNome());
+                    
+                    dispose();
+                    
+                }
+            });
+
+            container.add(item);
+        }
     }
 
     /**
