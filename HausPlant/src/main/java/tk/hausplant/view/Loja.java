@@ -14,9 +14,16 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JToggleButton;
+import javax.swing.LayoutStyle;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.WindowConstants;
 
 import tk.hausplant.controller.LojaController;
 import tk.hausplant.dao.MovelDAO;
@@ -26,7 +33,7 @@ import tk.hausplant.model.Planta;
 /**
  * Onde estarão disponíveis os objetos que poderão ser colocados na planta
  */
-public class Loja extends javax.swing.JFrame {
+public class Loja extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private final Planta planta;
@@ -90,24 +97,24 @@ public class Loja extends javax.swing.JFrame {
 	}
 
 	private void initComponents() {
-		new javax.swing.JSplitPane();
-		JPanel jPanel1 = new javax.swing.JPanel();
-		JToggleButton jToggleButton1 = new javax.swing.JToggleButton();
-		JLabel jLabel1 = new javax.swing.JLabel();
-		JLabel jLabel2 = new javax.swing.JLabel();
-		scroll = new javax.swing.JScrollPane();
-		container = new javax.swing.JPanel();
+		new JSplitPane();
+		JPanel jPanel1 = new JPanel();
+		JToggleButton jToggleButton1 = new JToggleButton();
+		JLabel jLabel1 = new JLabel();
+		JLabel jLabel2 = new JLabel();
+		scroll = new JScrollPane();
+		container = new JPanel();
 
-		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+		GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 100, Short.MAX_VALUE));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 100, Short.MAX_VALUE));
+		jPanel1Layout.setHorizontalGroup(
+				jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
+		jPanel1Layout.setVerticalGroup(
+				jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 100, Short.MAX_VALUE));
 
 		jToggleButton1.setText("jToggleButton1");
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setResizable(false);
 
 		jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
@@ -115,40 +122,40 @@ public class Loja extends javax.swing.JFrame {
 
 		jLabel2.setText("Clique sobre um item para adicionar à planta");
 
-		scroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		container.setBackground(new java.awt.Color(254, 254, 254));
 
-		javax.swing.GroupLayout containerLayout = new javax.swing.GroupLayout(container);
+		GroupLayout containerLayout = new GroupLayout(container);
 		container.setLayout(containerLayout);
-		containerLayout.setHorizontalGroup(containerLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 549, Short.MAX_VALUE));
-		containerLayout.setVerticalGroup(containerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGap(0, 319, Short.MAX_VALUE));
+		containerLayout.setHorizontalGroup(
+				containerLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 549, Short.MAX_VALUE));
+		containerLayout.setVerticalGroup(
+				containerLayout.createParallelGroup(GroupLayout.Alignment.LEADING).addGap(0, 319, Short.MAX_VALUE));
 
 		scroll.setViewportView(container);
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		GroupLayout layout = new GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(scroll).addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-						layout.createSequentialGroup().addGap(60, 60, 60).addComponent(jLabel1)
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-										javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(jLabel2).addGap(29, 29, 29)));
-		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
+		layout.setHorizontalGroup(
+				layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(scroll)
+						.addGroup(GroupLayout.Alignment.TRAILING,
+								layout.createSequentialGroup().addGap(60, 60, 60).addComponent(jLabel1)
+										.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(jLabel2).addGap(29, 29, 29)));
+		layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(layout
 				.createSequentialGroup().addContainerGap()
-				.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
 						.addGroup(layout.createSequentialGroup().addComponent(jLabel1).addGap(0, 0, Short.MAX_VALUE))
-						.addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING,
-								javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-								Short.MAX_VALUE))
-				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(scroll,
-						javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)));
+						.addComponent(jLabel2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+				.addComponent(scroll, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE)));
 
 		pack();
 	}
 
-	private javax.swing.JPanel container;
-	private javax.swing.JScrollPane scroll;
+	private JPanel container;
+	private JScrollPane scroll;
 }

@@ -8,8 +8,6 @@ package tk.hausplant.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
-
 import tk.hausplant.dao.PlantaDAO;
 import tk.hausplant.model.Planta;
 
@@ -23,10 +21,7 @@ public class PlantaController {
 
 	private static final String EXTENSAO_SERIALIZADO = ".dat";
 
-	private static final Logger LOG = Logger.getLogger(PlantaController.class.getName());
-
 	public static Planta carregar(final File arquivo) throws IOException {
-		LOG.info("Carregando planta");
 		return PlantaDAO.carregar(arquivo);
 	}
 
@@ -36,7 +31,6 @@ public class PlantaController {
 			arquivoComExtensao = new File(arquivo.toPath() + EXTENSAO_SERIALIZADO);
 		}
 
-		LOG.info("Salvando planta");
 		PlantaDAO.salvar(planta, arquivoComExtensao);
 	}
 }

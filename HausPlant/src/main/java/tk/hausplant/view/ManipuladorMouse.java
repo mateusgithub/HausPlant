@@ -22,7 +22,7 @@ import tk.hausplant.model.Parede;
 public class ManipuladorMouse extends MouseAdapter {
 
 	private enum Canto {
-		CantoA, CantoB;
+		CANTO_A, CANTO_B;
 	}
 
 	private static final int RAIO_ALCANCE = 12;
@@ -39,7 +39,7 @@ public class ManipuladorMouse extends MouseAdapter {
 
 	private boolean movendoMovel = false;
 
-	private Canto cantoSelecinado = Canto.CantoA;
+	private Canto cantoSelecinado = Canto.CANTO_A;
 
 	private Parede paredeSelecionada = null;
 
@@ -103,12 +103,12 @@ public class ManipuladorMouse extends MouseAdapter {
 				if (parede.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
 					selecionarParede(parede);
 					editandoParede = true;
-					cantoSelecinado = Canto.CantoA;
+					cantoSelecinado = Canto.CANTO_A;
 					break;
 				} else if (parede.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
 					selecionarParede(parede);
 					editandoParede = true;
-					cantoSelecinado = Canto.CantoB;
+					cantoSelecinado = Canto.CANTO_B;
 					break;
 				}
 			}
@@ -144,7 +144,7 @@ public class ManipuladorMouse extends MouseAdapter {
 				paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
 				renderizador.atualizar();
 			} else if (editandoParede) {
-				if (cantoSelecinado == Canto.CantoA) {
+				if (cantoSelecinado == Canto.CANTO_A) {
 					paredeSelecionada.setA(posMouseAtual.x, posMouseAtual.y);
 				} else {
 					paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);

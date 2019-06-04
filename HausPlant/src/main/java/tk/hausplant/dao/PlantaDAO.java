@@ -54,10 +54,8 @@ public class PlantaDAO {
 	public static Planta carregar(final File arquivo) throws IOException {
 		if (arquivo.exists()) {
 			if (arquivo.getAbsolutePath().endsWith(".csv")) {
-				LOG.info("Arquivo planta.csv");
 				return PlantaDAO.carregarPlantaCSV(arquivo);
 			} else {
-				LOG.info("Arquivo planta serializada");
 				return PlantaDAO.carregarPlantaSerializada(arquivo);
 			}
 		} else {
@@ -66,9 +64,7 @@ public class PlantaDAO {
 	}
 
 	/**
-	 * Carrega arquivo Planta serializado
-	 *
-	 * @return Planta
+	 * Carrega arquivo Planta serializado.
 	 */
 	private static Planta carregarPlantaSerializada(final File arquivoSerializado) {
 		Planta dados = null;
@@ -82,7 +78,7 @@ public class PlantaDAO {
 
 	/**
 	 * Carregar uma planta a partir e um arquivo. Carrega as cordenadas e monta as
-	 * paredes da Planta
+	 * paredes da Planta.
 	 */
 	private static Planta carregarPlantaCSV(final File arquivo) {
 		Planta planta = new Planta();

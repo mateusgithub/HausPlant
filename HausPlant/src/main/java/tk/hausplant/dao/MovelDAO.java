@@ -71,7 +71,6 @@ public class MovelDAO {
 				Triangle novoTriangulo = new Triangle(new Vector3D(v[0], v[1], v[2]), new Vector3D(v[3], v[4], v[5]),
 						new Vector3D(v[6], v[7], v[8]));
 				forma.addTriangle(novoTriangulo);
-
 			}
 		} catch (IOException ex) {
 			Logger.getLogger(PlantaDAO.class.getName()).log(Level.SEVERE, "Falha ao ler arquivo do móvel stl", ex);

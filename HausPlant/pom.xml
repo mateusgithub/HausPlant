@@ -42,14 +42,14 @@
 			<artifactId>SpaceDrawboardLibrary-0-2-1</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/SpaceDrawboardLibrary-0-2-1.jar</systemPath>
+			<systemPath>${project.basedir}/local-jars/SpaceDrawboardLibrary-0-2-1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>localjar</groupId>
 			<artifactId>sqljdbc42</artifactId>
 			<version>1.0</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/sqljdbc42.jar</systemPath>
+			<systemPath>${project.basedir}/local-jars/sqljdbc42.jar</systemPath>
 		</dependency>
 
 		<dependency>
