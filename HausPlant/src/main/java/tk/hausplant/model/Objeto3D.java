@@ -11,30 +11,32 @@ package tk.hausplant.model;
  */
 public abstract class Objeto3D {
 
-    protected float x, y, z;
+	protected float x;
+	protected float y;
+	protected float z;
 
-    public float getX() {
-        return x;
-    }
+	public float getX() {
+		return x;
+	}
 
-    public void setX(float x) {
-        this.x = x;
-    }
+	public void setX(final float x) {
+		this.x = x;
+	}
 
-    public float getY() {
-        return y;
-    }
+	public float getY() {
+		return y;
+	}
 
-    public void setY(float y) {
-        this.y = y;
-    }
+	public void setY(final float y) {
+		this.y = y;
+	}
 
-    public float getZ() {
-        return z;
-    }
+	public float getZ() {
+		return z;
+	}
 
-    public void setZ(float z) {
-        this.z = z;
-    }
+	public void setZ(final float z) {
+		this.z = z;
+	}
 
 }

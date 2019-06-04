@@ -20,51 +20,53 @@ import tk.hausplant.model.Parede;
  */
 public class Renderizador2DPlanta extends JPanel {
 
-    private final Color backgroundColor;
+	private static final long serialVersionUID = 1L;
 
-    private final Planta planta;
+	private final Color backgroundColor;
 
-    public Renderizador2DPlanta(Planta planta, Color backgroundColor) {
-        ManipuladorMouse mouseHandler = new ManipuladorMouse(planta, this);
+	private final Planta planta;
 
-        addMouseListener(mouseHandler);
-        addMouseMotionListener(mouseHandler);
-        addMouseWheelListener(mouseHandler);
+	public Renderizador2DPlanta(final Planta planta, final Color backgroundColor) {
+		ManipuladorMouse mouseHandler = new ManipuladorMouse(planta, this);
 
-        this.planta = planta;
-        this.backgroundColor = backgroundColor;
+		addMouseListener(mouseHandler);
+		addMouseMotionListener(mouseHandler);
+		addMouseWheelListener(mouseHandler);
 
-        setBackground(backgroundColor);
+		this.planta = planta;
+		this.backgroundColor = backgroundColor;
 
-        setDoubleBuffered(true);
-        setIgnoreRepaint(true);
+		setBackground(backgroundColor);
 
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                atualizar();
-            }
-        });
-    }
+		setDoubleBuffered(true);
+		setIgnoreRepaint(true);
 
-    private void clear() {
-        Graphics g = getGraphics();
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(final ComponentEvent e) {
+				atualizar();
+			}
+		});
+	}
 
-        if (g != null) {
-            g.setColor(backgroundColor);
-            g.fillRect(0, 0, getWidth(), getHeight());
-        }
-    }
+	private void clear() {
+		Graphics g = getGraphics();
 
-    public void atualizar() {
-        clear();
+		if (g != null) {
+			g.setColor(backgroundColor);
+			g.fillRect(0, 0, getWidth(), getHeight());
+		}
+	}
 
-        for (Parede parede : planta.getParedes()) {
-            parede.desenhar2DEm(getGraphics());
-        }
+	public void atualizar() {
+		clear();
 
-        for (Movel movel : planta.getMoveis()) {
-            movel.desenhar2DEm(getGraphics());
-        }
-    }
+		for (Parede parede : planta.getParedes()) {
+			parede.desenhar2DEm(getGraphics());
+		}
+
+		for (Movel movel : planta.getMoveis()) {
+			movel.desenhar2DEm(getGraphics());
+		}
+	}
 }

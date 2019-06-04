@@ -12,58 +12,33 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.ParseException;
 import java.util.ArrayList;
 import tk.hausplant.view.ItemLoja;
 
-/**
- *
- * @author sergio
- */
 public class ItemLojaDAO {
 
-    public static List<ItemLoja> lerItensCSV(final Path caminho) throws ParseException, IOException {
+	private ItemLojaDAO() {
+	}
 
-        BufferedReader source = null;
-        List<ItemLoja> lista = new ArrayList<>();
+	public static List<ItemLoja> lerItensCSV(final Path caminho) throws IOException {
 
-        source = Files.newBufferedReader(caminho,
-                StandardCharsets.UTF_8);
+		List<ItemLoja> lista = new ArrayList<>();
 
-        String line = source.readLine();
+		try (BufferedReader source = Files.newBufferedReader(caminho, StandardCharsets.UTF_8)) {
+			source.readLine();
 
-        while ((line = source.readLine()) != null) {
+			String line;
+			while ((line = source.readLine()) != null) {
+				if (!line.trim().isEmpty()) {
+					String[] variaveis = line.trim().split("\\s*,\\s*", 3);
+					if (variaveis.length >= 3) {
+						ItemLoja novoItem = new ItemLoja(variaveis[0], variaveis[1], variaveis[2]);
+						lista.add(novoItem);
+					}
+				}
+			}
+		}
 
-            if (line.trim().isEmpty()) {
-                continue;
-            }
-
-            String[] variaveis = line.trim().split("\\s*,\\s*", 3);
-            if (variaveis.length < 3) {
-                continue;
-            }
-            ItemLoja novoItem = new ItemLoja(variaveis[0], variaveis[1], variaveis[2]);
-            lista.add(novoItem);
-        }
-
-        return lista;
-    }
-
-    public static void main(final String[] args) throws ParseException, IOException {
-        /*
-        List<ItemLoja> lista=null;
-        try {
-            lista = ItemLojaDAO.lerItensDAO(Paths.get("teste.txt"));
-        } catch (ParseException ex) {
-            Logger.getLogger(ItemLojaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        } catch (IOException ex) {
-            Logger.getLogger(ItemLojaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
-        for(ItemLoja a : lista){
-            System.out.println(a.getNome()+", " + a.getLocalFoto() + ", " +  a.getLocalModelo() );
-        }
-         */
-    }
+		return lista;
+	}
 }

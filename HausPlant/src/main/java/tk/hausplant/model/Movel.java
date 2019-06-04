@@ -22,78 +22,71 @@ import tk.hausplant.view.Prancheta;
  */
 public class Movel extends Objeto3D implements Desenhavel, Serializable {
 
-    public static final Color COR_PADRAO = Color.gray;
+	public static final Color COR_PADRAO = Color.gray;
 
-    private final Model modelo;
+	private final Model modelo;
 
-    private final Color cor;
+	private final Color cor;
 
-    public Movel(Mesh forma, Color cor) {
-        Material material = new Material(cor);
-        
-        modelo = new Model(forma, material);
-        
-        this.cor = cor;
-        
-        setX(10);
-        setY(10);
-    }
+	public Movel(final Mesh forma, final Color cor) {
+		Material material = new Material(cor);
 
-    /**
-     * Obter dimensão do movel desenhado sobre a prancheta em pixels
-     *
-     * @return
-     */
-    public Rectangle getRetangulo() {
-        float s = Prancheta.PIXELS_POR_METRO;
-        return new Rectangle(
-                (int) (x * s), (int) (y * s),
-                30, 30
-        );
-    }
+		modelo = new Model(forma, material);
 
-    @Override
-    public void setX(float x) {
-        // Resetar posição
-        modelo.translate(new Vector3D(-this.x, 0, 0));
-        modelo.translate(new Vector3D(x, 0, 0));
+		this.cor = cor;
 
-        this.x = x;
-    }
+		setX(10);
+		setY(10);
+	}
 
-    @Override
-    public void setY(float y) {
-        // Resetar posição
-        modelo.translate(new Vector3D(0, this.y, 0));
-        modelo.translate(new Vector3D(0, -y, 0));
+	/**
+	 * Obter dimensão do movel desenhado sobre a prancheta em pixels
+	 *
+	 * @return
+	 */
+	public Rectangle getRetangulo() {
+		float s = Prancheta.PIXELS_POR_METRO;
+		return new Rectangle((int) (x * s), (int) (y * s), 30, 30);
+	}
 
-        this.y = y;
-    }
+	@Override
+	public void setX(final float x) {
+		// Resetar posição
+		modelo.translate(new Vector3D(-this.x, 0, 0));
+		modelo.translate(new Vector3D(x, 0, 0));
 
-    @Override
-    public void setZ(float z) {
-        // Ignorar
-    }
+		this.x = x;
+	}
 
-    public Color getCor() {
-        return cor;
-    }
+	@Override
+	public void setY(final float y) {
+		// Resetar posição
+		modelo.translate(new Vector3D(0, this.y, 0));
+		modelo.translate(new Vector3D(0, -y, 0));
 
-    @Override
-    public void desenhar2DEm(Graphics graficos2d) {
-        graficos2d.setColor(cor);
+		this.y = y;
+	}
 
-        Rectangle retangulo = getRetangulo();
-        graficos2d.fillRoundRect(
-                retangulo.x, retangulo.y,
-                retangulo.width, retangulo.height,
-                5, 5
-        );
-    }
+	@Override
+	public void setZ(final float z) {
+		// Ignorar
+	}
 
-    @Override
-    public void desenhar3DEm(Drawboard drawboard) {
-        drawboard.addModel(modelo);
-    }
+	public Color getCor() {
+		return cor;
+	}
+
+	@Override
+	public void desenhar2DEm(final Graphics graficos2d) {
+		graficos2d.setColor(cor);
+
+		Rectangle retangulo = getRetangulo();
+		graficos2d.fillRoundRect(retangulo.x, retangulo.y, retangulo.width, retangulo.height, 5, 5);
+	}
+
+	@Override
+	public void desenhar3DEm(final Drawboard drawboard) {
+		drawboard.addModel(modelo);
+	}
 
 }

@@ -21,171 +21,165 @@ import tk.hausplant.model.Parede;
  */
 public class ManipuladorMouse extends MouseAdapter {
 
-    private static enum Canto {
-        CantoA,
-        CantoB;
-    }
+	private enum Canto {
+		CantoA, CantoB;
+	}
 
-    private final static int RAIO_ALCANCE = 12;
+	private static final int RAIO_ALCANCE = 12;
 
-    private final Planta planta;
+	private final Planta planta;
 
-    private final Renderizador2DPlanta renderizador;
+	private final Renderizador2DPlanta renderizador;
 
-    private Point posMouseAntigo = null;
+	private Point posMouseAntigo = null;
 
-    private boolean criandoParede = false;
+	private boolean criandoParede = false;
 
-    private boolean editandoParede = false;
+	private boolean editandoParede = false;
 
-    private boolean movendoMovel = false;
+	private boolean movendoMovel = false;
 
-    private Canto cantoSelecinado = Canto.CantoA;
+	private Canto cantoSelecinado = Canto.CantoA;
 
-    private Parede paredeSelecionada = null;
-    
-    private Movel movelSelecionado = null;
+	private Parede paredeSelecionada = null;
 
-    public ManipuladorMouse(Planta planta, Renderizador2DPlanta viewer) {
-        this.planta = planta;
-        this.renderizador = viewer;
-    }
+	private Movel movelSelecionado = null;
 
-    private void clearSelection() {
-        if (paredeSelecionada != null) {
-            paredeSelecionada.setSelecionado(false);
-        }
-        renderizador.atualizar();
-    }
+	public ManipuladorMouse(final Planta planta, final Renderizador2DPlanta viewer) {
+		this.planta = planta;
+		this.renderizador = viewer;
+	}
 
-    private void selecionarParede(Parede parede) {
-        paredeSelecionada = parede;
-        parede.setSelecionado(true);
-        renderizador.atualizar();
-    }
+	private void clearSelection() {
+		if (paredeSelecionada != null) {
+			paredeSelecionada.setSelecionado(false);
+		}
+		renderizador.atualizar();
+	}
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // Manter
-    }
+	private void selecionarParede(final Parede parede) {
+		paredeSelecionada = parede;
+		parede.setSelecionado(true);
+		renderizador.atualizar();
+	}
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        clearSelection();
+	@Override
+	public void mouseClicked(final MouseEvent e) {
+		// Manter
+	}
 
-        if (criandoParede || editandoParede) {
-            criandoParede = false;
-            editandoParede = false;
-        } else {
-            Point posicaoMouse = e.getPoint();
+	@Override
+	public void mousePressed(final MouseEvent e) {
+		clearSelection();
 
-            // Verificar se a posição do cursor está dentro da área de um móvel
-            for (int i = planta.getMoveis().size()-1; i >= 0; i--) {
-                Movel movel = planta.getMoveis().get(i);
-                
-                Rectangle retangulo = movel.getRetangulo();
+		if (criandoParede || editandoParede) {
+			criandoParede = false;
+			editandoParede = false;
+		} else {
+			Point posicaoMouse = e.getPoint();
 
-                int largura = retangulo.width;
-                int altura = retangulo.height;
+			// Verificar se a posição do cursor está dentro da área de um móvel
+			for (int i = planta.getMoveis().size() - 1; i >= 0; i--) {
+				Movel movel = planta.getMoveis().get(i);
 
-                float xMovel = retangulo.x;
-                float yMovel = retangulo.y;
+				Rectangle retangulo = movel.getRetangulo();
 
-                if (posicaoMouse.x >= xMovel && posicaoMouse.x <= xMovel + largura
-                        && posicaoMouse.y >= yMovel && posicaoMouse.y <= yMovel + altura) {
-                    movendoMovel = true;
-                    movelSelecionado = movel;
-                    break;
-                }
-            }
+				int largura = retangulo.width;
+				int altura = retangulo.height;
 
-            // Verificar se a posição do cursor está próxima à algum canto de parede
-            for (Parede parede : planta.getParedes()) {
-                if (parede.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
-                    selecionarParede(parede);
-                    editandoParede = true;
-                    cantoSelecinado = Canto.CantoA;
-                    break;
-                } else if (parede.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
-                    selecionarParede(parede);
-                    editandoParede = true;
-                    cantoSelecinado = Canto.CantoB;
-                    break;
-                }
-            }
-        }
-    }
+				float xMovel = retangulo.x;
+				float yMovel = retangulo.y;
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        clearSelection();
+				if (posicaoMouse.x >= xMovel && posicaoMouse.x <= xMovel + largura && posicaoMouse.y >= yMovel
+						&& posicaoMouse.y <= yMovel + altura) {
+					movendoMovel = true;
+					movelSelecionado = movel;
+					break;
+				}
+			}
 
-        criandoParede = false;
-        posMouseAntigo = null;
-        editandoParede = false;
-        movendoMovel = false;
-    }
+			// Verificar se a posição do cursor está próxima à algum canto de parede
+			for (Parede parede : planta.getParedes()) {
+				if (parede.getA().distance(posicaoMouse) <= RAIO_ALCANCE) {
+					selecionarParede(parede);
+					editandoParede = true;
+					cantoSelecinado = Canto.CantoA;
+					break;
+				} else if (parede.getB().distance(posicaoMouse) <= RAIO_ALCANCE) {
+					selecionarParede(parede);
+					editandoParede = true;
+					cantoSelecinado = Canto.CantoB;
+					break;
+				}
+			}
+		}
+	}
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // Manter
-    }
+	@Override
+	public void mouseReleased(final MouseEvent e) {
+		clearSelection();
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // Manter
-    }
+		criandoParede = false;
+		posMouseAntigo = null;
+		editandoParede = false;
+		movendoMovel = false;
+	}
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        Point posMouseAtual = e.getPoint();
+	@Override
+	public void mouseEntered(final MouseEvent e) {
+		// Manter
+	}
 
-        if (posMouseAntigo != null) {
-            if (criandoParede) {
-                paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
-                renderizador.atualizar();
-            } else if (editandoParede) {
-                if (cantoSelecinado == Canto.CantoA) {
-                    paredeSelecionada.setA(posMouseAtual.x, posMouseAtual.y);
-                } else {
-                    paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
-                }
-                renderizador.atualizar();
-            }
-            else if(movendoMovel){
-                float xMovelAntigo = movelSelecionado.getX();
-                float yMovelAntigo = movelSelecionado.getY();
-                
-                float diferencaX = posMouseAtual.x - posMouseAntigo.x;
-                float diferencaY = posMouseAtual.y - posMouseAntigo.y;
-                
-                movelSelecionado.setX(xMovelAntigo + diferencaX / Prancheta.PIXELS_POR_METRO);
-                movelSelecionado.setY(yMovelAntigo + diferencaY / Prancheta.PIXELS_POR_METRO);
-            }
-            else {
-                // Iniciar desenho de nova parede
-                selecionarParede(new Parede(
-                        posMouseAntigo.x, posMouseAntigo.y,
-                        posMouseAtual.x, posMouseAtual.y
-                ));
-                planta.addParede(paredeSelecionada);
-                criandoParede = true;
-            }
-        }
+	@Override
+	public void mouseExited(final MouseEvent e) {
+		// Manter
+	}
 
-        posMouseAntigo = posMouseAtual;
-        
-        renderizador.atualizar();
-    }
+	@Override
+	public void mouseDragged(final MouseEvent e) {
+		Point posMouseAtual = e.getPoint();
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        renderizador.atualizar();
-    }
+		if (posMouseAntigo != null) {
+			if (criandoParede) {
+				paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
+				renderizador.atualizar();
+			} else if (editandoParede) {
+				if (cantoSelecinado == Canto.CantoA) {
+					paredeSelecionada.setA(posMouseAtual.x, posMouseAtual.y);
+				} else {
+					paredeSelecionada.setB(posMouseAtual.x, posMouseAtual.y);
+				}
+				renderizador.atualizar();
+			} else if (movendoMovel) {
+				float xMovelAntigo = movelSelecionado.getX();
+				float yMovelAntigo = movelSelecionado.getY();
 
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        // Manter
-    }
+				float diferencaX = (float) posMouseAtual.x - posMouseAntigo.x;
+				float diferencaY = (float) posMouseAtual.y - posMouseAntigo.y;
+
+				movelSelecionado.setX(xMovelAntigo + diferencaX / Prancheta.PIXELS_POR_METRO);
+				movelSelecionado.setY(yMovelAntigo + diferencaY / Prancheta.PIXELS_POR_METRO);
+			} else {
+				// Iniciar desenho de nova parede
+				selecionarParede(new Parede(posMouseAntigo.x, posMouseAntigo.y, posMouseAtual.x, posMouseAtual.y));
+				planta.addParede(paredeSelecionada);
+				criandoParede = true;
+			}
+		}
+
+		posMouseAntigo = posMouseAtual;
+
+		renderizador.atualizar();
+	}
+
+	@Override
+	public void mouseMoved(final MouseEvent e) {
+		renderizador.atualizar();
+	}
+
+	@Override
+	public void mouseWheelMoved(final MouseWheelEvent e) {
+		// Manter
+	}
 
 }

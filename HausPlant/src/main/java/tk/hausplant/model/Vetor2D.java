@@ -11,41 +11,58 @@ package tk.hausplant.model;
  */
 public class Vetor2D {
 
-    public double x, y;
+	private double x;
+	private double y;
 
-    public Vetor2D(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+	public Vetor2D(final double x, final double y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    public Vetor2D() {
-        x = 0;
-        y = 0;
-    }
+	public Vetor2D() {
+		x = 0;
+		y = 0;
+	}
 
-    public Vetor2D getOrthogonal() {
-        return new Vetor2D(y, -x);
-    }
+	public double getX() {
+		return x;
+	}
 
-    public Vetor2D plus(Vetor2D other) {
-        return new Vetor2D(x + other.x, y + other.y);
-    }
+	public double getY() {
+		return y;
+	}
 
-    public Vetor2D minus(Vetor2D other) {
-        return new Vetor2D(x - other.x, y - other.y);
-    }
+	public void setX(final double x) {
+		this.x = x;
+	}
 
-    public Vetor2D times(double scalar) {
-        return new Vetor2D(x * scalar, y * scalar);
-    }
+	public void setY(final double y) {
+		this.y = y;
+	}
 
-    public void normalize() {
-        double len = Math.sqrt(x * x + y * y);
+	public Vetor2D getOrthogonal() {
+		return new Vetor2D(y, -x);
+	}
 
-        if (len != 0) {
-            x /= len;
-            y /= len;
-        }
-    }
+	public Vetor2D plus(final Vetor2D other) {
+		return new Vetor2D(x + other.x, y + other.y);
+	}
+
+	public Vetor2D minus(final Vetor2D other) {
+		return new Vetor2D(x - other.x, y - other.y);
+	}
+
+	public Vetor2D times(final double scalar) {
+		return new Vetor2D(x * scalar, y * scalar);
+	}
+
+	public void normalize() {
+		double len = Math.sqrt(x * x + y * y);
+
+		if (len != 0) {
+			x /= len;
+			y /= len;
+		}
+	}
 
 }

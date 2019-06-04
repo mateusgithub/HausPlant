@@ -15,45 +15,45 @@ import java.util.List;
  */
 public class Planta implements Serializable {
 
-    private String descricao;
+	private String descricao;
 
-    private final List<Parede> paredes;
+	private final List<Parede> paredes;
 
-    private final List<Movel> moveis;
+	private final List<Movel> moveis;
 
-    public Planta() {
-        paredes = new ArrayList<>();
-        moveis = new ArrayList<>();
-    }
+	public Planta() {
+		paredes = new ArrayList<>();
+		moveis = new ArrayList<>();
+	}
 
-    public Planta(String descricao, List<Parede> paredes, List<Movel> moveis) {
-        this.descricao = descricao;
-        this.paredes = paredes;
-        this.moveis = moveis;
-    }
+	public Planta(final String descricao, final List<Parede> paredes, final List<Movel> moveis) {
+		this.descricao = descricao;
+		this.paredes = paredes;
+		this.moveis = moveis;
+	}
 
-    public List<Parede> getParedes() {
-        return paredes;
-    }
+	public List<Parede> getParedes() {
+		return paredes;
+	}
 
-    public void addParede(Parede parede) {
-        this.paredes.add(parede);
-    }
+	public void addParede(final Parede parede) {
+		this.paredes.add(parede);
+	}
 
-    public List<Movel> getMoveis() {
-        return moveis;
-    }
+	public List<Movel> getMoveis() {
+		return moveis;
+	}
 
-    public void addMovel(Movel movel) {
-        this.moveis.add(movel);
-    }
+	public void addMovel(final Movel movel) {
+		this.moveis.add(movel);
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setDescricao(final String descricao) {
+		this.descricao = descricao;
+	}
 
 }

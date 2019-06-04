@@ -25,93 +25,80 @@ import tk.hausplant.model.Planta;
  */
 public class PlantaDAO {
 
-    private static final Logger LOG = Logger.getLogger(PlantaDAO.class.getName());
+	private PlantaDAO() {
+	}
 
-    /**
-     * Construtor inicializa as informações dos arquivos
-     */
-    public PlantaDAO() {
-    }
+	private static final Logger LOG = Logger.getLogger(PlantaDAO.class.getName());
 
-    /**
-     * Salva os dados da Planta em formato serializado.
-     *
-     * @param planta Referência para objeto com dados pré-carregados
-     * @param arquivoSerializado Local para salvar o arquivo
-     */
-    public static void salvar(Planta planta, File arquivoSerializado) {
-        try {
-            ObjectOutputStream os = new ObjectOutputStream(
-                    Files.newOutputStream(arquivoSerializado.toPath()));
-            os.writeObject(planta);
-        } catch (IOException ex) {
-            LOG.log(Level.SEVERE, "Erro ao salvar", ex);
-        }
-    }
+	/**
+	 * Salva os dados da Planta em formato serializado.
+	 *
+	 * @param planta             Referência para objeto com dados pré-carregados
+	 * @param arquivoSerializado Local para salvar o arquivo
+	 */
+	public static void salvar(final Planta planta, final File arquivoSerializado) {
+		try (ObjectOutputStream os = new ObjectOutputStream(Files.newOutputStream(arquivoSerializado.toPath()))) {
+			os.writeObject(planta);
+		} catch (IOException ex) {
+			LOG.log(Level.SEVERE, "Erro ao salvar", ex);
+		}
+	}
 
-    /**
-     * Metodo que verifica existencia do arquivo e decide se deve ler
-     * serializado ou do arquivo .csv
-     *
-     * @param arquivo
-     * @return Planta com descricao e paredes
-     */
-    public static Planta carregar(File arquivo) throws Exception {
-        if (arquivo.exists()) {
-            if (arquivo.getAbsolutePath().endsWith(".csv")) {
-                LOG.info("Arquivo planta.csv");
-                return carregarPlantaCSV(arquivo);
-            } else {
-                LOG.info("Arquivo planta serializada");
-                return carregarPlantaSerializada(arquivo);
-            }
-        }
-        else{
-            throw new Exception("Arquivo não encontrando");
-        }
-    }
+	/**
+	 * Metodo que verifica existencia do arquivo e decide se deve ler serializado ou
+	 * do arquivo .csv
+	 *
+	 * @param arquivo
+	 * @return Planta com descricao e paredes
+	 */
+	public static Planta carregar(final File arquivo) throws IOException {
+		if (arquivo.exists()) {
+			if (arquivo.getAbsolutePath().endsWith(".csv")) {
+				LOG.info("Arquivo planta.csv");
+				return PlantaDAO.carregarPlantaCSV(arquivo);
+			} else {
+				LOG.info("Arquivo planta serializada");
+				return PlantaDAO.carregarPlantaSerializada(arquivo);
+			}
+		} else {
+			throw new IOException("Arquivo não encontrando");
+		}
+	}
 
-    /**
-     * Carrega arquivo Planta serializado
-     *
-     * @return Planta
-     */
-    private static Planta carregarPlantaSerializada(File arquivoSerializado) {
-        ObjectInputStream is;
-        Planta dados = null;
-        try {
-            is = new ObjectInputStream(
-                    Files.newInputStream(arquivoSerializado.toPath()));
-            dados = (Planta) is.readObject();
-        } catch (ClassNotFoundException | IOException ex) {
-            LOG.log(Level.SEVERE, "loadSerialized", ex);
-        }
-        return dados;
-    }
+	/**
+	 * Carrega arquivo Planta serializado
+	 *
+	 * @return Planta
+	 */
+	private static Planta carregarPlantaSerializada(final File arquivoSerializado) {
+		Planta dados = null;
+		try (ObjectInputStream is = new ObjectInputStream(Files.newInputStream(arquivoSerializado.toPath()))) {
+			dados = (Planta) is.readObject();
+		} catch (ClassNotFoundException | IOException ex) {
+			LOG.log(Level.SEVERE, "loadSerialized", ex);
+		}
+		return dados;
+	}
 
-    /**
-     * Carregar uma planta a partir e um arquivo. Carrega as cordenadas e monta
-     * as paredes da Planta
-     */
-    private static Planta carregarPlantaCSV(File arquivo) {
-        Planta planta = new Planta();
+	/**
+	 * Carregar uma planta a partir e um arquivo. Carrega as cordenadas e monta as
+	 * paredes da Planta
+	 */
+	private static Planta carregarPlantaCSV(final File arquivo) {
+		Planta planta = new Planta();
 
-        BufferedReader source;
-        try {
-            source = Files.newBufferedReader(arquivo.toPath(),
-                    StandardCharsets.ISO_8859_1);
-            String cabecalho = source.readLine();
-            String line;
-            while ((line = source.readLine()) != null) {
-                String[] cord = line.split(",");
-                final Parede parede = new Parede(Integer.valueOf(cord[0]), Integer.valueOf(cord[1]), Integer.valueOf(cord[2]), Integer.valueOf(cord[3]));
-                planta.addParede(parede);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(PlantaDAO.class.getName()).
-                    log(Level.SEVERE, "Falha ao ler arquivo planta csv", ex);
-        }
+		try (BufferedReader source = Files.newBufferedReader(arquivo.toPath(), StandardCharsets.ISO_8859_1)) {
+			String line;
+			while ((line = source.readLine()) != null) {
+				String[] cord = line.split(",");
+				final Parede parede = new Parede(Integer.valueOf(cord[0]), Integer.valueOf(cord[1]),
+						Integer.valueOf(cord[2]), Integer.valueOf(cord[3]));
+				planta.addParede(parede);
+			}
+		} catch (IOException ex) {
+			Logger.getLogger(PlantaDAO.class.getName()).log(Level.SEVERE, "Falha ao ler arquivo planta csv", ex);
+		}
 
-        return planta;
-    }
+		return planta;
+	}
 }
